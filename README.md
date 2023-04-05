@@ -1,5 +1,9 @@
 # 209.3 Ramie robota
 
+## Sk³ad zespo³u
+Mateusz Ostaszewski
+Krzysztof Gólcz
+
 ## Cel projektu
 
 Celem projektu jest zrealizowanie symulacji ramienia robota, które za zadanie ma osi¹gn¹æ punkt w trójwymiarowej przestrzeni (wspó³rzêdne xyz) lub oznajmienie, ¿e cel jest poza zasiêgiem.
