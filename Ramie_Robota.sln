@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ramie_Robota", "Ramie_Robota\Ramie_Robota.vcxproj", "{539C6FCF-A2AF-42B2-AE1C-0821155610CC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{4A99DD9D-2108-4186-A83E-2441626A50A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementy rozwiązania", "Elementy rozwiązania", "{6D026BF1-4A6D-4264-9F74-060B35704F34}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{539C6FCF-A2AF-42B2-AE1C-0821155610CC}.Debug|x64.ActiveCfg = Debug|x64
+		{539C6FCF-A2AF-42B2-AE1C-0821155610CC}.Debug|x64.Build.0 = Debug|x64
+		{539C6FCF-A2AF-42B2-AE1C-0821155610CC}.Debug|x86.ActiveCfg = Debug|Win32
+		{539C6FCF-A2AF-42B2-AE1C-0821155610CC}.Debug|x86.Build.0 = Debug|Win32
+		{539C6FCF-A2AF-42B2-AE1C-0821155610CC}.Release|x64.ActiveCfg = Release|x64
+		{539C6FCF-A2AF-42B2-AE1C-0821155610CC}.Release|x64.Build.0 = Release|x64
+		{539C6FCF-A2AF-42B2-AE1C-0821155610CC}.Release|x86.ActiveCfg = Release|Win32
+		{539C6FCF-A2AF-42B2-AE1C-0821155610CC}.Release|x86.Build.0 = Release|Win32
+		{4A99DD9D-2108-4186-A83E-2441626A50A5}.Debug|x64.ActiveCfg = Debug|x64
+		{4A99DD9D-2108-4186-A83E-2441626A50A5}.Debug|x64.Build.0 = Debug|x64
+		{4A99DD9D-2108-4186-A83E-2441626A50A5}.Debug|x86.ActiveCfg = Debug|Win32
+		{4A99DD9D-2108-4186-A83E-2441626A50A5}.Debug|x86.Build.0 = Debug|Win32
+		{4A99DD9D-2108-4186-A83E-2441626A50A5}.Release|x64.ActiveCfg = Release|x64
+		{4A99DD9D-2108-4186-A83E-2441626A50A5}.Release|x64.Build.0 = Release|x64
+		{4A99DD9D-2108-4186-A83E-2441626A50A5}.Release|x86.ActiveCfg = Release|Win32
+		{4A99DD9D-2108-4186-A83E-2441626A50A5}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {24F98385-8D73-4269-857C-86A1A7EC4E57}
+	EndGlobalSection
+EndGlobal
