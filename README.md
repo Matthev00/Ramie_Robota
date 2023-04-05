@@ -1,5 +1,36 @@
 # 209.3 Ramie robota
 
+## Cel projektu
+
+Celem projektu jest zrealizowanie symulacji ramienia robota, które za zadanie ma osi¹gn¹æ punkt w trójwymiarowej przestrzeni (wspó³rzêdne xyz) lub oznajmienie, ¿e cel jest poza zasiêgiem.
+Zrealizuje to poprzez ruchy trzema przegubami oraz ocinków ³¹cz¹cych.
+
+## Podzia³ problemu na klasy
+
+1. Klasa ramienia robota
+
+2. Klasa przeg³ubu
+
+3. Klasa odcinka ³¹cz¹cego
+
+4. Klasa ramienia (dziedzicz¹ca po klasie odcinka)
+
+5. Klasa przedramienia (dziedzicz¹ca po klasie odcinka)
+
+6. Klasa przeg³ubu barkowego (dziedzicz¹ca po klasie przeg³ubu)
+
+7. Klasa przeg³ubu ³okciowego (dziedzicz¹ca po klasie przeg³ubu)
+
+8. Klasa chwytaka (w tym miejscu, je¿eli to mo¿liwe, ma siê znaleŸæ punkt docelowy)
+
+## Wstêpne za³o¿enia algorytmy dostawania siê do punktu
+
+Na pocz¹tku ruszamy przeg³ubem barkowym do momentu a¿ przeg³um ³okciowy bêdzie najbli¿ej punktu docelowego.
+Nastêpnie ruszamy przeg³ubem ³okciowym do momentu a¿ chwytak bêdzie najbli¿ej celu.
+Nastêpnie (je¿eli to potrzebne) modyfikujemy d³ugoœæ przedramienia.
+
+
+
 
 
 ## Getting started
