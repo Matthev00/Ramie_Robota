@@ -29,10 +29,10 @@
     <ClInclude Include="Arm.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Joint.h">
+    <ClInclude Include="Coordinates.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Coordinates.h">
+    <ClInclude Include="Joint.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
