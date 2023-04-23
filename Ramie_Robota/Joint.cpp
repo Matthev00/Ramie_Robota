@@ -2,9 +2,9 @@
 #include "Joint.h"
 #include <math.h>
 
-Joint::Joint(const JointConnector& my_next_joint_connector, const Coordinates& coordinates = Coordinates(0, 0, 0))
+Joint::Joint(const JointConnector& my_next_joint_connector)
 {
-    this->coordinates = coordinates;
+    this->coordinates = Coordinates();
     this->my_next_joint_connector = my_next_joint_connector;
 }
 
