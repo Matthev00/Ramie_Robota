@@ -21,7 +21,7 @@ protected:
 	Coordinates coordinates;
 	JointConnector my_next_joint_connector;
 public:
-	Joint(const JointConnector&, const Coordinates&);
+	Joint(const JointConnector&);
 	float get_x_coordinate()const;
 	float get_y_coordinate()const;
 	float get_z_coordinate()const;
