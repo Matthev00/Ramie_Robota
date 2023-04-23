@@ -1,7 +1,8 @@
+//Author: Mateusz Ostaszewski
 #include "Joint.h"
 #include <math.h>
 
-Joint::Joint(const Coordinates& coordinates, const JointConnector& my_next_joint_connector)
+Joint::Joint(const JointConnector& my_next_joint_connector, const Coordinates& coordinates = Coordinates(0, 0, 0))
 {
     this->coordinates = coordinates;
     this->my_next_joint_connector = my_next_joint_connector;
@@ -110,7 +111,7 @@ void Joint::adjust_coords_of_next_joint_connector(const float x_end)
     //
  
     // Final
-    // float tg_alpha = Arm.get_tg_of_the_angle();
+    // float tg_alpha = Arm.get_tg_alpha();
     //
     float y = tg_alpha * x - my_next_joint_connector.get_begin_coordinates().y;
     float old_z = my_next_joint_connector.get_end_coordinates().z;
