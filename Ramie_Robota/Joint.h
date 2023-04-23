@@ -16,11 +16,11 @@ public:
 
 class Joint
 {
-private:
+protected:
 	Coordinates coordinates;
 	JointConnector my_next_joint_connector;
 public:
-	Joint(Coordinates&, JointConnector&);
+	Joint(const Coordinates&, const JointConnector&);
 	float get_x_coordinate()const;
 	float get_y_coordinate()const;
 	float get_z_coordinate()const;
