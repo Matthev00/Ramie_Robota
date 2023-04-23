@@ -3,8 +3,9 @@
 #include <math.h>
 #include <cmath>
 
-ShoulderJoint::ShoulderJoint(const JointConnector& next_joint_connector, const Coordinates& coords = Coordinates()) : Joint(next_joint_connector, coords)
+ShoulderJoint::ShoulderJoint(const JointConnector& next_joint_connector, const Coordinates& coords = Coordinates()) : Joint(next_joint_connector)
 {
+	coordinates = coords;
 	alpha = 0;
 }
 
