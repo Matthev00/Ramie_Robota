@@ -32,7 +32,7 @@ float ShoulderJoint::rotate(const int alpha)
 	}
 	Coordinates new_coords(new_x, new_y, coords_of_next_joint.z);
 	my_next_joint_connector.set_coordinates(new_coords);
-	this->alpha = alpha;
+	this->alpha = alpha % 360;
 	return tg_alpha;
 }
 

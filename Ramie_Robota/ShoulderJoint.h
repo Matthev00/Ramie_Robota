@@ -4,7 +4,7 @@
 class ShoulderJoint :
     public Joint
 {
-private:
+protected:
     int alpha;
 public:
     ShoulderJoint(const JointConnector&, const Coordinates&);
