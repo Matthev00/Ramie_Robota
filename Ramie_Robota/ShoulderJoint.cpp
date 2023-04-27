@@ -40,3 +40,13 @@ float ShoulderJoint::rotate_one_degree()
 {
 	return rotate(alpha + 1);
 }
+
+int ShoulderJoint::get_alpha() const
+{
+	return alpha;
+}
+
+void ShoulderJoint::set_alpha(const int alpha)
+{
+	this->alpha = alpha;
+}

@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arm.cpp" />
+    <ClCompile Include="coordinates.cpp" />
     <ClCompile Include="ElbowJoint.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="Ramie_Robota.cpp" />
