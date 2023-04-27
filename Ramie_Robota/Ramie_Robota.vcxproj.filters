@@ -28,9 +28,12 @@
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="RestrictedShoulderJoint.cpp">
-    <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="ElbowJoint.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="coordinates.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -48,7 +51,7 @@
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="RestrictedShoulderJoint.h">
-    <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="ElbowJoint.h">
       <Filter>Pliki nagłówkowe</Filter>

@@ -1,6 +1,12 @@
 //Author: Mateusz Ostaszewski
 #include "Joint.h"
 #include <math.h>
+#include <fstream>
+
+Joint::Joint()
+{
+    this->coordinates = Coordinates();
+}
 
 Joint::Joint(const JointConnector& my_next_joint_connector)
 {
@@ -124,4 +130,45 @@ void Joint::adjust_coords_of_next_joint_connector(const float x_end)
         y + my_next_joint_connector.get_begin_coordinates().y,
         z);
     my_next_joint_connector.set_coordinates(coords);
+}
+
+void Joint::save_to_file(std::string file_name)
+{
+    std::fstream out;
+    try {
+        out.open(file_name, std::ios::out);
+    }
+    catch (std::ifstream::failure x) {
+        std::cout << x.what() << std::endl;
+    }
+    out << *this;
+    out.close();
+}
+
+void Joint::read_from_file(std::string file_name)
+{
+    std::fstream in;
+    try {
+        in.open(file_name, std::ios::in);
+    }
+    catch (std::ifstream::failure x) {
+        std::cout << x.what() << std::endl;
+    }
+    in >> *this;
+    in.close();
+}
+
+std::ostream& operator<<(std::ostream& out, const Joint& j)
+{
+    out << j.coordinates;
+    out << j.my_next_joint_connector;
+    return out;
+}
+
+std::istream& operator>>(std::istream& in, Joint& j)
+{
+    Coordinates coords;
+    JointConnector next;
+    in >> coords >> next;
+    return in;
 }
