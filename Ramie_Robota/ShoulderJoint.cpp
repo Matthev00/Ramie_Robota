@@ -40,3 +40,31 @@ float ShoulderJoint::rotate_one_degree()
 {
 	return rotate(alpha + 1);
 }
+
+int ShoulderJoint::get_alpha() const
+{
+	return alpha;
+}
+
+void ShoulderJoint::set_alpha(const int alpha)
+{
+	this->alpha = alpha % 360;
+}
+
+std::ostream& operator<<(std::ostream& out, const ShoulderJoint& sj)
+{
+	out << static_cast<const Joint&>(sj);
+	out << "Alpha: " << sj.alpha;
+}
+
+std::istream& operator>>(std::istream& in, ShoulderJoint& sj)
+{
+	std::string alp;
+	int alpha = 0;
+	in >> static_cast<Joint&>(sj);
+	in >> alp >> alpha;
+	if (alp != "Alpha: ") {
+		throw "Wrong input!";
+	}
+	sj.set_alpha(alpha);
+}
