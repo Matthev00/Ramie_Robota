@@ -11,4 +11,3 @@ public:
     float rotate(const int);
     float rotate_one_degree();
 };
-

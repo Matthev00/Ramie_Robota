@@ -130,14 +130,18 @@
   <ItemGroup>
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="Joint.cpp" />
+    <ClCompile Include="JointConnector.cpp" />
     <ClCompile Include="Ramie_Robota.cpp" />
     <ClCompile Include="ShoulderJoint.cpp" />
+    <ClCompile Include="Wektor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arm.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Joint.h" />
+    <ClInclude Include="JointConnector.h" />
     <ClInclude Include="ShoulderJoint.h" />
+    <ClInclude Include="Wektor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
