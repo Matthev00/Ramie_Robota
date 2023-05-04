@@ -12,5 +12,7 @@ public:
     float rotate_one_degree();
     int get_alpha()const;
     void set_alpha(const int);
+    friend std::ostream& operator<<(std::ostream&, const ShoulderJoint&);
+    friend std::istream& operator>>(std::istream&, const ShoulderJoint&);
 };
 

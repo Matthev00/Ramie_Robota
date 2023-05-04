@@ -40,7 +40,7 @@ public:
 	Coordinates operator++();
 	void adjust_coords_of_next_joint_connector(const float);
 	friend std::ostream& operator<<(std::ostream&, const Joint&);
-	friend std::istream& operator>>(std::istream&, const Joint&);
+	friend std::istream& operator>>(std::istream&, Joint&);
 	void save_to_file(std::string);
 	void read_from_file(std::string);
 };

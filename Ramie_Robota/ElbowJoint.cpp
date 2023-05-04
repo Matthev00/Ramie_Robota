@@ -24,9 +24,9 @@ std::ostream& operator<<(std::ostream& out, const ElbowJoint& ej)
 	return out;
 }
 
-std::istream& operator>>(std::istream& in, const ElbowJoint& ej)
+std::istream& operator>>(std::istream& in, ElbowJoint& ej)
 {
-	in >> static_cast<const Joint&>(ej);
+	in >> static_cast<Joint&>(ej);
 	in >> ej.my_next_joint_connector;
 	return in;
 }
