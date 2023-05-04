@@ -54,7 +54,7 @@ void ShoulderJoint::set_alpha(const int alpha)
 std::ostream& operator<<(std::ostream& out, const ShoulderJoint& sj)
 {
 	out << static_cast<const Joint&>(sj);
-	out << "Alpha: " << sj.alpha;
+	out << "Alpha: " << sj.alpha << std::endl;
 }
 
 std::istream& operator>>(std::istream& in, ShoulderJoint& sj)
