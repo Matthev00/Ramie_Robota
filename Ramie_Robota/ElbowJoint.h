@@ -10,5 +10,5 @@ public:
     JointConnector get_previous_joint_connector()const;
     void set_previous_joint_connector(const JointConnector&);
     friend std::ostream& operator<<(std::ostream&, const ElbowJoint&);
-    friend std::istream& operator>>(std::istream&, const ElbowJoint&);
+    friend std::istream& operator>>(std::istream&, ElbowJoint&);
 };
