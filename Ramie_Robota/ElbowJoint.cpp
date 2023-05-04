@@ -16,3 +16,17 @@ void ElbowJoint::set_previous_joint_connector(const JointConnector& previous_joi
 {
 	my_previous_joint_connector = previous_joint_connector;
 }
+
+std::ostream& operator<<(std::ostream& out, const ElbowJoint& ej)
+{
+	out << static_cast<const Joint&>(ej);
+	out << ej.my_previous_joint_connector;
+	return out;
+}
+
+std::istream& operator>>(std::istream& in, const ElbowJoint& ej)
+{
+	in >> static_cast<const Joint&>(ej);
+	in >> ej.my_next_joint_connector;
+	return in;
+}
