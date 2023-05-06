@@ -1,4 +1,6 @@
 #include "Arm.h"
+#include "Joint.h"
+#include "ElbowJoint.h"
 #include <cmath>
 
 Arm::Arm()

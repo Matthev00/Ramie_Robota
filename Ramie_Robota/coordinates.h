@@ -1,4 +1,5 @@
 #pragma once
+#include <istream>
 struct Coordinates
 {
 	float x;
@@ -9,4 +10,6 @@ struct Coordinates
 		this->y = y;
 		this->z = z;
 	}
+	friend std::ostream& operator<<(std::ostream& out, const Coordinates& c);
+	friend std::istream& operator>>(std::istream& in, Coordinates& c);
 };
