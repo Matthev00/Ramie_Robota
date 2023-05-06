@@ -2,7 +2,7 @@
 #pragma once
 #include "coordinates.h"
 #include<iostream>
-
+/*
 class JointConnector
 {
 private:
@@ -14,9 +14,11 @@ public:
 	int get_lenght()const;
 	void set_coordinates(Coordinates);
 	float max_x()const;
+	float min_x()const;
 	friend std::ostream& operator<<(std::ostream&, const JointConnector&);
 	friend std::istream& operator>>(std::istream&, const JointConnector&);
 };
+*/
 
 class Joint
 {

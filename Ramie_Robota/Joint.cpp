@@ -65,8 +65,11 @@ void Joint::bend(const int incrment)
         if (x + 1 <= my_next_joint_connector.max_x()) {
             x += 1;
         }
-        else {
+        else if (x - 1 >= my_next_joint_connector.min_x()) {
             x -= 1;
+        }
+        else {
+            break;
         }
     }
     adjust_coords_of_next_joint_connector(x);
@@ -74,14 +77,7 @@ void Joint::bend(const int incrment)
 
 void Joint::bend_one_unit()
 {
-    float x = my_next_joint_connector.get_end_coordinates().x;
-    if (x + 1 <= my_next_joint_connector.max_x()) {
-        x += 1;
-    }
-    else {
-        x -= 1;
-    }
-    adjust_coords_of_next_joint_connector(x);
+    bend(1);
 }
 
 void Joint::bend_0_1()
@@ -90,7 +86,7 @@ void Joint::bend_0_1()
     if (x + 0.1 <= my_next_joint_connector.max_x()) {
         x += 0.1;
     }
-    else {
+    else if (x - 0.1 >= my_next_joint_connector.min_x()) {
         x -= 0.1;
     }
     adjust_coords_of_next_joint_connector(x);
@@ -157,7 +153,17 @@ void Joint::read_from_file(std::string file_name)
     in >> *this;
     in.close();
 }
+/*
+std::ostream& operator<<(std::ostream& os, const JointConnector&)
+{
+    return os;
+}
 
+std::istream& operator>>(std::istream& in, const JointConnector&)
+{
+    return in;
+}
+*/
 std::ostream& operator<<(std::ostream& out, const Joint& j)
 {
     out << j.coordinates;
@@ -172,3 +178,33 @@ std::istream& operator>>(std::istream& in, Joint& j)
     in >> coords >> next;
     return in;
 }
+/*
+Coordinates JointConnector::get_begin_coordinates() const
+{
+    return Coordinates();
+}
+
+Coordinates JointConnector::get_end_coordinates() const
+{
+    return Coordinates();
+}
+
+int JointConnector::get_lenght() const
+{
+    return 0;
+}
+
+void JointConnector::set_coordinates(Coordinates)
+{
+}
+
+float JointConnector::max_x() const
+{
+    return 0.0f;
+}
+
+float JointConnector::min_x() const
+{
+    return 0.0f;
+}
+*/

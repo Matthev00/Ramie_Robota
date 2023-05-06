@@ -55,6 +55,7 @@ std::ostream& operator<<(std::ostream& out, const ShoulderJoint& sj)
 {
 	out << static_cast<const Joint&>(sj);
 	out << "Alpha: " << sj.alpha << std::endl;
+	return out;
 }
 
 std::istream& operator>>(std::istream& in, ShoulderJoint& sj)

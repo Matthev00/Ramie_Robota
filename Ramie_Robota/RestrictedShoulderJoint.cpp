@@ -2,7 +2,7 @@
 
 RestrictedShoulderJoint::RestrictedShoulderJoint(const JointConnector& next_joint_connector,
 	const Coordinates& coords = Coordinates(),
-	const unsigned int max_angle) :
+	const unsigned int max_angle = 90) :
 	ShoulderJoint(next_joint_connector, coords)
 {
 	this->max_angle = max_angle % 360;
@@ -38,6 +38,7 @@ std::ostream& operator<<(std::ostream& out, const RestrictedShoulderJoint& rsj)
 {
 	out << static_cast<const ShoulderJoint&>(rsj);
 	out << "Max angle: " << rsj.max_angle << std::endl;
+	return out;
 }
 
 std::istream& operator>>(std::istream& in, RestrictedShoulderJoint& rsj)
