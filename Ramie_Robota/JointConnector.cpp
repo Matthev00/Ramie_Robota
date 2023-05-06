@@ -1,17 +1,19 @@
 #include "JointConnector.h"
 
-
-// Czy jest sens umozliwiac zmiane koncowych/wektora
-
-JointConnector::JointConnector(Coordinates begin, Coordinates end, float tg = 0)
+JointConnector::JointConnector(Coordinates begin, Coordinates end)
 {
 	begin_coordinates = begin;
 	end_coordinates = end;
-	tg_angle = tg;
-	const float x_diff = end_coordinates.x - begin_coordinates.x;
-	const float y_diff = end_coordinates.y - begin_coordinates.y;
-	const float z_diff = end_coordinates.z - begin_coordinates.z;
+	float x_diff = end_coordinates.x - begin_coordinates.x;
+	float y_diff = end_coordinates.y - begin_coordinates.y;
+	float z_diff = end_coordinates.z - begin_coordinates.z;
 	direction = Wektor(x_diff, y_diff, z_diff);
+}
+
+float JointConnector::count_length() const
+{
+	float len = direction.count_distance();
+	return len;
 }
 
 Coordinates JointConnector::get_begin_coordinates() const
@@ -22,7 +24,6 @@ Coordinates JointConnector::get_begin_coordinates() const
 void JointConnector::set_begin_coordinates(const Coordinates newBegin)
 {
 	begin_coordinates = newBegin;
-	update_directions();
 }
 
 Coordinates JointConnector::get_end_coordinates() const
@@ -33,7 +34,6 @@ Coordinates JointConnector::get_end_coordinates() const
 void JointConnector::set_end_coordinates(const Coordinates newEnd)
 {
 	end_coordinates = newEnd;
-	update_directions();
 }
 
 Wektor JointConnector::get_direction() const
@@ -44,9 +44,7 @@ Wektor JointConnector::get_direction() const
 void JointConnector::set_direction(const Wektor newDirection)
 {
 	direction = newDirection;
-	update_end_coordinates();
 }
-
 
 void JointConnector::update_directions()
 {
@@ -57,33 +55,7 @@ void JointConnector::update_directions()
 	set_direction(newDirection);
 }
 
-void JointConnector::update_end_coordinates()
-{
-	float newx = begin_coordinates.x + direction.x;
-	float newy = begin_coordinates.y + direction.y;
-	float newz = begin_coordinates.z + direction.z;
-	set_end_coordinates(Coordinates(newx, newy, newz));
-}
-
 float JointConnector::get_lenght() const
 {
 	return direction.count_distance();
 }
-
-float JointConnector::max_x() const
-{
-	float outcome = 0;
-	float direction_squared = direction.count_distance() * direction.count_distance();
-	float tg_squared = tg_angle * tg_angle;
-	outcome = sqrt(direction_squared / (1 + tg_squared));
-	return outcome;
-}
-float JointConnector::min_x() const
-{
-	float outcome = 0;
-	float direction_squared = direction.count_distance() * direction.count_distance();
-	float tg_squared = tg_angle * tg_angle;
-	outcome = sqrt(direction_squared / (1 - tg_squared));
-	return outcome;
-}
-
