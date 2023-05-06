@@ -4,6 +4,12 @@ class Wektor
 {
 public:
 	float x, y, z;
+	Wektor()
+	{
+		x = 0;
+		y = 0;
+		z = 0;
+	}
 	Wektor(const float x, const float y, const float z)
 	{
 		this->x = x;
