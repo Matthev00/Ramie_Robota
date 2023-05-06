@@ -15,4 +15,3 @@ public:
     friend std::ostream& operator<<(std::ostream&, const ShoulderJoint&);
     friend std::istream& operator>>(std::istream&, ShoulderJoint&);
 };
-
