@@ -129,14 +129,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arm.cpp" />
+    <ClCompile Include="coordinates.cpp" />
+    <ClCompile Include="ElbowJoint.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="Ramie_Robota.cpp" />
+    <ClCompile Include="RestrictedShoulderJoint.cpp" />
     <ClCompile Include="ShoulderJoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arm.h" />
     <ClInclude Include="Coordinates.h" />
+    <ClInclude Include="ElbowJoint.h" />
     <ClInclude Include="Joint.h" />
+    <ClInclude Include="RestrictedShoulderJoint.h" />
     <ClInclude Include="ShoulderJoint.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
