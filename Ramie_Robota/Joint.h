@@ -2,6 +2,7 @@
 #pragma once
 #include "coordinates.h"
 #include<iostream>
+#include "JointConnector.h"
 /*
 class JointConnector
 {

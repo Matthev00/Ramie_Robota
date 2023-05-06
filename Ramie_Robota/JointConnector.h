@@ -14,6 +14,7 @@ private:
 	
 public:
 	JointConnector(Coordinates, Coordinates);
+	JointConnector();
 	
 	float count_length()const;
 
@@ -30,5 +31,6 @@ public:
 	void update_end_coordinates();
 	float get_lenght()const;
 	float max_x()const;
+	float min_x()const;
 
 };

@@ -3,6 +3,7 @@
 #include <math.h>
 #include <fstream>
 
+
 Joint::Joint()
 {
     this->coordinates = Coordinates();
@@ -125,7 +126,7 @@ void Joint::adjust_coords_of_next_joint_connector(const float x_end)
         x + my_next_joint_connector.get_begin_coordinates().x,
         y + my_next_joint_connector.get_begin_coordinates().y,
         z);
-    my_next_joint_connector.set_coordinates(coords);
+    my_next_joint_connector.set_end_coordinates(coords);
 }
 
 void Joint::save_to_file(std::string file_name)
