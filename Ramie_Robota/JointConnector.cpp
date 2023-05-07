@@ -44,7 +44,6 @@ Wektor JointConnector::get_direction() const
 void JointConnector::set_direction(const Wektor newDirection)
 {
 	direction = newDirection;
-	update_end_coordinates();
 }
 
 
