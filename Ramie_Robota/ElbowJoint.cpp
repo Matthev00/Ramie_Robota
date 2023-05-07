@@ -1,7 +1,7 @@
 
 #include "ElbowJoint.h"
 
-ElbowJoint::ElbowJoint()
+ElbowJoint::ElbowJoint() :Joint()
 {
 }
 

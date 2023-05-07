@@ -1,4 +1,8 @@
 #include "JointConnector.h"
+/*
+JointConnector::JointConnector()
+{
+}
 
 JointConnector::JointConnector(Coordinates begin, Coordinates end)
 {
@@ -55,7 +59,31 @@ void JointConnector::update_directions()
 	set_direction(newDirection);
 }
 
+void JointConnector::update_end_coordinates()
+{
+}
+
 float JointConnector::get_lenght() const
 {
 	return direction.count_distance();
 }
+
+float JointConnector::max_x() const
+{
+	return 0.0f;
+}
+
+float JointConnector::min_x() const
+{
+	return 0.0f;
+}
+
+std::ostream& operator<<(std::ostream& out, const JointConnector&)
+{
+	return out;
+}
+
+std::istream& operator>>(std::istream& in, JointConnector&)
+{
+	return in;
+}*/

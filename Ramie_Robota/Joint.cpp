@@ -57,6 +57,16 @@ void Joint::set_coordinates(const Coordinates& coordinates)
     this->coordinates = coordinates;
 }
 
+JointConnector Joint::get_my_next_joint_connector() const
+{
+    return my_next_joint_connector;
+}
+
+void Joint::set_my_next_joint_connector(const JointConnector& new_jc)
+{
+    my_next_joint_connector = new_jc;
+}
+
 void Joint::bend(const int incrment)
 {
     float x = my_next_joint_connector.get_end_coordinates().x;
@@ -125,7 +135,7 @@ void Joint::adjust_coords_of_next_joint_connector(const float x_end)
         x + my_next_joint_connector.get_begin_coordinates().x,
         y + my_next_joint_connector.get_begin_coordinates().y,
         z);
-    my_next_joint_connector.set_coordinates(coords);
+    my_next_joint_connector.set_end_coordinates(coords);
 }
 
 void Joint::save_to_file(std::string file_name)
@@ -153,7 +163,7 @@ void Joint::read_from_file(std::string file_name)
     in >> *this;
     in.close();
 }
-/*
+
 std::ostream& operator<<(std::ostream& os, const JointConnector&)
 {
     return os;
@@ -163,7 +173,7 @@ std::istream& operator>>(std::istream& in, const JointConnector&)
 {
     return in;
 }
-*/
+
 std::ostream& operator<<(std::ostream& out, const Joint& j)
 {
     out << j.coordinates;
@@ -178,7 +188,7 @@ std::istream& operator>>(std::istream& in, Joint& j)
     in >> coords >> next;
     return in;
 }
-/*
+
 Coordinates JointConnector::get_begin_coordinates() const
 {
     return Coordinates();
@@ -194,7 +204,7 @@ int JointConnector::get_lenght() const
     return 0;
 }
 
-void JointConnector::set_coordinates(Coordinates)
+void JointConnector::set_end_coordinates(Coordinates)
 {
 }
 
@@ -207,4 +217,4 @@ float JointConnector::min_x() const
 {
     return 0.0f;
 }
-*/
+

@@ -4,7 +4,7 @@
 #include "Joint.h"
 #include <math.h>
 #include "Wektor.h"
-
+/*
 class JointConnector
 {
 private:
@@ -13,6 +13,7 @@ private:
 	Wektor direction;
 	
 public:
+	JointConnector();
 	JointConnector(Coordinates, Coordinates);
 	
 	float count_length()const;
@@ -30,5 +31,9 @@ public:
 	void update_end_coordinates();
 	float get_lenght()const;
 	float max_x()const;
+	float min_x()const;
 
-};
+	friend std::ostream& operator<<(std::ostream&, const JointConnector&);
+	friend std::istream& operator>>(std::istream&, JointConnector&);
+
+};*/

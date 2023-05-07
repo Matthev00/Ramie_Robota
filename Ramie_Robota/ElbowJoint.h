@@ -1,5 +1,8 @@
-
+#pragma once
+#include "JointConnector.h"
 #include "Joint.h"
+
+
 class ElbowJoint :
     public Joint
 {

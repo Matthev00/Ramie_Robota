@@ -1,5 +1,10 @@
 #include "RestrictedShoulderJoint.h"
 
+RestrictedShoulderJoint::RestrictedShoulderJoint() : ShoulderJoint()
+{
+	max_angle = 90;
+}
+
 RestrictedShoulderJoint::RestrictedShoulderJoint(const JointConnector& next_joint_connector,
 	const Coordinates& coords = Coordinates(),
 	const unsigned int max_angle = 90) :
@@ -10,7 +15,7 @@ RestrictedShoulderJoint::RestrictedShoulderJoint(const JointConnector& next_join
 
 float RestrictedShoulderJoint::rotate(const int angle)
 {
-	if (angle<0 or angle>max_angle) {
+	if (angle<0 || angle>max_angle) {
 		throw "Angle is beyond range.";
 	}
 	return ShoulderJoint::rotate(angle);

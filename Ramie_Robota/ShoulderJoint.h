@@ -1,12 +1,14 @@
 //Author: Mateusz Ostaszewski
 #pragma once
 #include "Joint.h"
+#include "JointConnector.h"
 class ShoulderJoint :
     public Joint
 {
 protected:
     int alpha;
 public:
+    ShoulderJoint();
     ShoulderJoint(const JointConnector&, const Coordinates&);
     float rotate(const int);
     float rotate_one_degree();
