@@ -10,8 +10,8 @@ protected:
 public:
     ShoulderJoint();
     ShoulderJoint(const JointConnector&, const Coordinates&);
-    float rotate(const int);
-    float rotate_one_degree();
+    double rotate(const int);
+    double rotate_one_degree();
     int get_alpha()const;
     void set_alpha(const int);
     friend std::ostream& operator<<(std::ostream&, const ShoulderJoint&);

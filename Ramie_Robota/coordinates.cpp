@@ -18,9 +18,10 @@ std::istream& operator>>(std::istream& in,Coordinates& c)
 
 bool Coordinates::operator==(Coordinates other)
 {
-    if (x == other.x &&
-        y == other.y &&
-        z == other.z) {
+    float eps = 0.01;
+    if (abs(x - other.x) < eps &&
+        abs(y - other.y) < eps &&
+        abs(z - other.z) < eps) {
         return true;
     }
     return false;

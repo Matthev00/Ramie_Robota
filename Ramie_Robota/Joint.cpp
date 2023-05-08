@@ -6,12 +6,14 @@
 Joint::Joint()
 {
     this->coordinates = Coordinates();
+    tg_alpha = 0;
 }
 
 Joint::Joint(const JointConnector& my_next_joint_connector)
 {
     this->coordinates = Coordinates();
     this->my_next_joint_connector = my_next_joint_connector;
+    tg_alpha = 0;
 }
 
 float Joint::get_x_coordinate() const
@@ -57,6 +59,16 @@ void Joint::set_coordinates(const Coordinates& coordinates)
     this->coordinates = coordinates;
 }
 
+void Joint::set_tg_alpha(const float tg)
+{
+    this->tg_alpha = tg;
+}
+
+float Joint::get_tg_alpha()
+{
+    return tg_alpha;
+}
+
 JointConnector Joint::get_my_next_joint_connector() const
 {
     return my_next_joint_connector;
@@ -69,20 +81,46 @@ void Joint::set_my_next_joint_connector(const JointConnector& new_jc)
 
 void Joint::bend(const int incrment)
 {
+    bool over = false;
     float x = my_next_joint_connector.get_end_coordinates().x;
-    for (int i = 1; i <= incrment; i++)
-    {
-        if (x + 1 <= my_next_joint_connector.max_x()) {
-            x += 1;
-        }
-        else if (x - 1 >= my_next_joint_connector.min_x()) {
-            x -= 1;
-        }
-        else {
-            break;
+    if (x >= 0) {
+        for (int i = 1; i <= incrment; i++)
+        {
+            if (x + 1 <= my_next_joint_connector.max_x()) {
+                x += 1;
+            }
+            else if (x - 1 >= my_next_joint_connector.min_x()) {
+                if (!over) {
+                    x = my_next_joint_connector.max_x();
+                    over = true;
+                }
+                else x -= 1;
+            }
+            else {
+                break;
+            }
+            adjust_coords_of_next_joint_connector(x);
         }
     }
-    adjust_coords_of_next_joint_connector(x);
+    else {
+        for (int i = 1; i <= incrment; i++)
+        {
+            if (x - 1 >= my_next_joint_connector.min_x()) {
+                x -= 1;
+            }
+            else if (x + 1 <= my_next_joint_connector.max_x()) {
+                if (!over) {
+                    x = my_next_joint_connector.min_x();
+                    over = true;
+                }
+                else x += 1;
+            }
+            else {
+                break;
+            }
+            adjust_coords_of_next_joint_connector(x);
+        }
+    }
 }
 
 void Joint::bend_one_unit()
@@ -92,42 +130,41 @@ void Joint::bend_one_unit()
 
 void Joint::bend_0_1()
 {
+    bool over = false;
     float x = my_next_joint_connector.get_end_coordinates().x;
-    if (x + 0.1 <= my_next_joint_connector.max_x()) {
-        x += 0.1;
-    }
-    else if (x - 0.1 >= my_next_joint_connector.min_x()) {
-        x -= 0.1;
-    }
-    adjust_coords_of_next_joint_connector(x);
-}
-
-Coordinates Joint::operator++()
-{
-    float x = my_next_joint_connector.get_end_coordinates().x;
-    if (x + 1 <= my_next_joint_connector.max_x()) {
-        x += 1;
+    if (x >= 0) {
+        if (x + 0.1 <= my_next_joint_connector.max_x()) {
+            x += 0.1;
+        }
+        else if (x - 0.1 >= my_next_joint_connector.min_x()) {
+            if (!over) {
+                x = my_next_joint_connector.max_x();
+                over = true;
+            }
+            else x -= 0.1;
+        }
     }
     else {
-        x -= 1;
+        if (x - 0.1 >= my_next_joint_connector.min_x()) {
+            x -= 0.1;
+        }
+        else if (x + 0.1 <= my_next_joint_connector.max_x()) {
+            if (!over) {
+                x = my_next_joint_connector.min_x();
+                over = true;
+            }
+            else x += 0.1;
+        }
     }
     adjust_coords_of_next_joint_connector(x);
-    return my_next_joint_connector.get_end_coordinates();
 }
 
 void Joint::adjust_coords_of_next_joint_connector(const float x_end)
 {
     float x = x_end - my_next_joint_connector.get_begin_coordinates().x;
-    // Testing ver
-    float tg_alpha = sqrt(2) / 2;
-    //
- 
-    // Final
-    // float tg_alpha = Arm.get_tg_alpha();
-    //
     float y = tg_alpha * x - my_next_joint_connector.get_begin_coordinates().y;
     float old_z = my_next_joint_connector.get_end_coordinates().z;
-    int lenght = my_next_joint_connector.get_lenght();
+    float lenght = my_next_joint_connector.get_lenght();
     float new_z = sqrt(lenght * lenght - x * x - y * y);
     float begin_z = my_next_joint_connector.get_begin_coordinates().z;
     float z = (begin_z + new_z < old_z)? begin_z + new_z : begin_z - new_z;
@@ -164,16 +201,6 @@ void Joint::read_from_file(std::string file_name)
     in.close();
 }
 
-std::ostream& operator<<(std::ostream& os, const JointConnector&)
-{
-    return os;
-}
-
-std::istream& operator>>(std::istream& in, const JointConnector&)
-{
-    return in;
-}
-
 std::ostream& operator<<(std::ostream& out, const Joint& j)
 {
     out << j.coordinates;
@@ -189,32 +216,103 @@ std::istream& operator>>(std::istream& in, Joint& j)
     return in;
 }
 
+JointConnector::JointConnector()
+{
+}
+
+JointConnector::JointConnector(Coordinates begin, Coordinates end, float tg = 0)
+{
+    begin_coordinates = begin;
+    end_coordinates = end;
+    tg_angle = tg;
+    const float x_diff = end_coordinates.x - begin_coordinates.x;
+    const float y_diff = end_coordinates.y - begin_coordinates.y;
+    const float z_diff = end_coordinates.z - begin_coordinates.z;
+    direction = Wektor(x_diff, y_diff, z_diff);
+}
+
 Coordinates JointConnector::get_begin_coordinates() const
 {
-    return Coordinates();
+    return begin_coordinates;
+}
+
+void JointConnector::set_begin_coordinates(const Coordinates newBegin)
+{
+    begin_coordinates = newBegin;
+    update_directions();
 }
 
 Coordinates JointConnector::get_end_coordinates() const
 {
-    return Coordinates();
+    return end_coordinates;
 }
 
-int JointConnector::get_lenght() const
+void JointConnector::set_end_coordinates(const Coordinates newEnd)
 {
-    return 0;
+    end_coordinates = newEnd;
+    update_directions();
 }
 
-void JointConnector::set_end_coordinates(Coordinates)
+Wektor JointConnector::get_direction() const
 {
+    return direction;
+}
+
+void JointConnector::set_direction(const Wektor newDirection)
+{
+    direction = newDirection;
+    update_end_coordinates();
+}
+
+
+void JointConnector::update_directions()
+{
+    float x_diff = end_coordinates.x - begin_coordinates.x;
+    float y_diff = end_coordinates.y - begin_coordinates.y;
+    float z_diff = end_coordinates.z - begin_coordinates.z;
+    Wektor newDirection = Wektor(x_diff, y_diff, z_diff);
+    set_direction(newDirection);
+}
+
+void JointConnector::update_end_coordinates()
+{
+    float newx = begin_coordinates.x + direction.x;
+    float newy = begin_coordinates.y + direction.y;
+    float newz = begin_coordinates.z + direction.z;
+    //set_end_coordinates(Coordinates(newx, newy, newz));
+}
+
+float JointConnector::get_lenght() const
+{
+    return direction.count_distance();
 }
 
 float JointConnector::max_x() const
 {
-    return 0.0f;
+    float outcome = 0;
+    float direction_squared = direction.count_distance() * direction.count_distance();
+    float tg_squared = tg_angle * tg_angle;
+    outcome = sqrt(direction_squared / (1 + tg_squared));
+    return outcome;
 }
-
 float JointConnector::min_x() const
 {
-    return 0.0f;
+    return -1 * max_x();
 }
+
+void JointConnector::set_tg_angle(const float tg)
+{   
+    tg_angle = tg;
+}
+
+std::ostream& operator<<(std::ostream& out, const JointConnector&)
+{
+    return out;
+}
+
+std::istream& operator>>(std::istream& in, JointConnector&)
+{
+    return in;
+}
+
 

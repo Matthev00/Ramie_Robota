@@ -19,6 +19,7 @@ JointConnector ElbowJoint::get_previous_joint_connector() const
 void ElbowJoint::set_previous_joint_connector(const JointConnector& previous_joint_connector)
 {
 	my_previous_joint_connector = previous_joint_connector;
+	coordinates = previous_joint_connector.get_end_coordinates();
 }
 
 std::ostream& operator<<(std::ostream& out, const ElbowJoint& ej)
