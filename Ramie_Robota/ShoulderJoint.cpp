@@ -66,7 +66,7 @@ std::istream& operator>>(std::istream& in, ShoulderJoint& sj)
 	int alpha = 0;
 	in >> static_cast<Joint&>(sj);
 	in >> alp >> alpha;
-	if (alp != "Alpha: ") {
+	if (alp != "Alpha:") {
 		throw "Wrong input!";
 	}
 	sj.set_alpha(alpha);

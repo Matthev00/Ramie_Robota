@@ -211,8 +211,7 @@ std::ostream& operator<<(std::ostream& out, const Joint& j)
 std::istream& operator>>(std::istream& in, Joint& j)
 {
     Coordinates coords;
-    JointConnector next;
-    in >> coords >> next;
+    in >> coords >> j.my_next_joint_connector;
     return in;
 }
 
@@ -220,7 +219,7 @@ JointConnector::JointConnector()
 {
 }
 
-JointConnector::JointConnector(Coordinates begin, Coordinates end, float tg = 0)
+JointConnector::JointConnector(Coordinates begin, Coordinates end, float tg)
 {
     begin_coordinates = begin;
     end_coordinates = end;
@@ -305,13 +304,24 @@ void JointConnector::set_tg_angle(const float tg)
     tg_angle = tg;
 }
 
-std::ostream& operator<<(std::ostream& out, const JointConnector&)
+std::ostream& operator<<(std::ostream& out, const JointConnector& jc)
 {
+    out << "Begin coordinates: " << jc.get_begin_coordinates();
+    out << "End coordinates: " << jc.get_end_coordinates();
     return out;
 }
 
-std::istream& operator>>(std::istream& in, JointConnector&)
+std::istream& operator>>(std::istream& in, JointConnector& jc)
 {
+    std::string a, b;
+    in >> a >> b >> jc.begin_coordinates;
+    if (a != "Begin" || b != "coordinates:") {
+        throw "Wrong input!";
+    }
+    in >> a >> b >> jc.end_coordinates;
+    if (a != "End" || b != "coordinates:") {
+        throw "Wrong input!";
+    }
     return in;
 }
 

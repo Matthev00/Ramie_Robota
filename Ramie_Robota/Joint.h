@@ -14,7 +14,7 @@ private:
 
 public:
 	JointConnector();
-	JointConnector(Coordinates, Coordinates, float);
+	JointConnector(Coordinates, Coordinates, float = 0.0f);
 
 
 	Coordinates get_begin_coordinates()const;

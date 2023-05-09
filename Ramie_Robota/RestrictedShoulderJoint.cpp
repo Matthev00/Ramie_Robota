@@ -48,11 +48,11 @@ std::ostream& operator<<(std::ostream& out, const RestrictedShoulderJoint& rsj)
 
 std::istream& operator>>(std::istream& in, RestrictedShoulderJoint& rsj)
 {
-	std::string max_ang;
+	std::string a, b;
 	int max_angle = 0;
 	in >> static_cast<ShoulderJoint&>(rsj);
-	in >> max_ang  >> max_angle;
-	if (max_ang != "Alpha: ") {
+	in >> a >> b >> max_angle;
+	if (a != "Max" || b != "angle:") {
 		throw "Wrong input!";
 	}
 	rsj.set_max_angle(max_angle);
