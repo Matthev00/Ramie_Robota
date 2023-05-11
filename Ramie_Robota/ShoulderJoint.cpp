@@ -2,6 +2,7 @@
 #include "ShoulderJoint.h"
 #include <math.h>
 #include <cmath>
+#include <fstream>
 
 ShoulderJoint::ShoulderJoint() : Joint()
 {
@@ -53,21 +54,8 @@ void ShoulderJoint::set_alpha(const int alpha)
 	rotate(alpha);
 }
 
-std::ostream& operator<<(std::ostream& out, const ShoulderJoint& sj)
+void ShoulderJoint::print() const
 {
-	out << static_cast<const Joint&>(sj);
-	out << "Alpha: " << sj.alpha << std::endl;
-	return out;
-}
-
-std::istream& operator>>(std::istream& in, ShoulderJoint& sj)
-{
-	std::string alp;
-	int alpha = 0;
-	in >> static_cast<Joint&>(sj);
-	in >> alp >> alpha;
-	if (alp != "Alpha:") {
-		throw "Wrong input!";
-	}
-	sj.set_alpha(alpha);
+	Joint::print();
+	std::cout << "Alpha: " << alpha << std::endl;
 }

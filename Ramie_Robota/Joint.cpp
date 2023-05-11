@@ -16,42 +16,9 @@ Joint::Joint(const JointConnector& my_next_joint_connector)
     tg_alpha = 0;
 }
 
-float Joint::get_x_coordinate() const
-{
-    return coordinates.x;
-}
-
-float Joint::get_y_coordinate() const
-{
-    return coordinates.y;
-}
-
-float Joint::get_z_coordinate() const
-{
-    return coordinates.z;
-}
-
 Coordinates Joint::get_coordinates() const
 {
     return coordinates;
-}
-
-void Joint::set_x_coordinate(const float x)
-{
-    coordinates.x = x;
-}
-
-void Joint::set_y_coordinate(const float y)
-{
-    coordinates.y = y;
-}
-
-void Joint::set_z_coordinate(const float z)
-{
-    if (z < 0) {
-        throw "Value has to be non-negative!";
-    }
-    coordinates.z = z;
 }
 
 void Joint::set_coordinates(const Coordinates& coordinates)
@@ -64,7 +31,7 @@ void Joint::set_tg_alpha(const float tg)
     this->tg_alpha = tg;
 }
 
-float Joint::get_tg_alpha()
+float Joint::get_tg_alpha() const
 {
     return tg_alpha;
 }
@@ -167,7 +134,7 @@ void Joint::adjust_coords_of_next_joint_connector(const float x_end)
     float lenght = my_next_joint_connector.get_lenght();
     float new_z = sqrt(lenght * lenght - x * x - y * y);
     float begin_z = my_next_joint_connector.get_begin_coordinates().z;
-    float z = (begin_z + new_z < old_z)? begin_z + new_z : begin_z - new_z;
+    float z = (begin_z + new_z < old_z) ? begin_z + new_z : begin_z - new_z;
     Coordinates coords(
         x + my_next_joint_connector.get_begin_coordinates().x,
         y + my_next_joint_connector.get_begin_coordinates().y,
@@ -175,7 +142,12 @@ void Joint::adjust_coords_of_next_joint_connector(const float x_end)
     my_next_joint_connector.set_end_coordinates(coords);
 }
 
-void Joint::save_to_file(std::string file_name)
+void Joint::print() const
+{
+    std::cout << coordinates << my_next_joint_connector;
+}
+
+void Joint::save_to_file(std::string file_name) const
 {
     std::fstream out;
     try {
@@ -184,7 +156,10 @@ void Joint::save_to_file(std::string file_name)
     catch (std::ifstream::failure x) {
         std::cout << x.what() << std::endl;
     }
+    std::streambuf* oss = std::cout.rdbuf();
+    std::cout.rdbuf(out.rdbuf());
     out << *this;
+    std::cout.rdbuf(oss);
     out.close();
 }
 
@@ -203,8 +178,7 @@ void Joint::read_from_file(std::string file_name)
 
 std::ostream& operator<<(std::ostream& out, const Joint& j)
 {
-    out << j.coordinates;
-    out << j.my_next_joint_connector;
+    j.print();
     return out;
 }
 
@@ -214,115 +188,3 @@ std::istream& operator>>(std::istream& in, Joint& j)
     in >> coords >> j.my_next_joint_connector;
     return in;
 }
-
-JointConnector::JointConnector()
-{
-}
-
-JointConnector::JointConnector(Coordinates begin, Coordinates end, float tg)
-{
-    begin_coordinates = begin;
-    end_coordinates = end;
-    tg_angle = tg;
-    const float x_diff = end_coordinates.x - begin_coordinates.x;
-    const float y_diff = end_coordinates.y - begin_coordinates.y;
-    const float z_diff = end_coordinates.z - begin_coordinates.z;
-    direction = Wektor(x_diff, y_diff, z_diff);
-}
-
-Coordinates JointConnector::get_begin_coordinates() const
-{
-    return begin_coordinates;
-}
-
-void JointConnector::set_begin_coordinates(const Coordinates newBegin)
-{
-    begin_coordinates = newBegin;
-    update_directions();
-}
-
-Coordinates JointConnector::get_end_coordinates() const
-{
-    return end_coordinates;
-}
-
-void JointConnector::set_end_coordinates(const Coordinates newEnd)
-{
-    end_coordinates = newEnd;
-    update_directions();
-}
-
-Wektor JointConnector::get_direction() const
-{
-    return direction;
-}
-
-void JointConnector::set_direction(const Wektor newDirection)
-{
-    direction = newDirection;
-    update_end_coordinates();
-}
-
-
-void JointConnector::update_directions()
-{
-    float x_diff = end_coordinates.x - begin_coordinates.x;
-    float y_diff = end_coordinates.y - begin_coordinates.y;
-    float z_diff = end_coordinates.z - begin_coordinates.z;
-    Wektor newDirection = Wektor(x_diff, y_diff, z_diff);
-    set_direction(newDirection);
-}
-
-void JointConnector::update_end_coordinates()
-{
-    float newx = begin_coordinates.x + direction.x;
-    float newy = begin_coordinates.y + direction.y;
-    float newz = begin_coordinates.z + direction.z;
-    //set_end_coordinates(Coordinates(newx, newy, newz));
-}
-
-float JointConnector::get_lenght() const
-{
-    return direction.count_distance();
-}
-
-float JointConnector::max_x() const
-{
-    float outcome = 0;
-    float direction_squared = direction.count_distance() * direction.count_distance();
-    float tg_squared = tg_angle * tg_angle;
-    outcome = sqrt(direction_squared / (1 + tg_squared));
-    return outcome;
-}
-float JointConnector::min_x() const
-{
-    return -1 * max_x();
-}
-
-void JointConnector::set_tg_angle(const float tg)
-{   
-    tg_angle = tg;
-}
-
-std::ostream& operator<<(std::ostream& out, const JointConnector& jc)
-{
-    out << "Begin coordinates: " << jc.get_begin_coordinates();
-    out << "End coordinates: " << jc.get_end_coordinates();
-    return out;
-}
-
-std::istream& operator>>(std::istream& in, JointConnector& jc)
-{
-    std::string a, b;
-    in >> a >> b >> jc.begin_coordinates;
-    if (a != "Begin" || b != "coordinates:") {
-        throw "Wrong input!";
-    }
-    in >> a >> b >> jc.end_coordinates;
-    if (a != "End" || b != "coordinates:") {
-        throw "Wrong input!";
-    }
-    return in;
-}
-
-

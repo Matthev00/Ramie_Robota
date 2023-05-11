@@ -31,14 +31,14 @@ namespace JointTest
 			ShoulderJoint sj;
 			RestrictedShoulderJoint rsj;
 			Coordinates c;
-			Assert::AreEqual(true, c==j.get_coordinates());
+			Assert::AreEqual(true, c == j.get_coordinates());
 			Assert::AreEqual(true, c == j.get_my_next_joint_connector().get_begin_coordinates());
 			Assert::AreEqual(true, c == j.get_my_next_joint_connector().get_end_coordinates());
 
 			Assert::AreEqual(true, c == ej.get_coordinates());
 			Assert::AreEqual(true, c == ej.get_my_next_joint_connector().get_begin_coordinates());
 			Assert::AreEqual(true, c == ej.get_my_next_joint_connector().get_end_coordinates());
-			
+
 			Assert::AreEqual(true, c == sj.get_coordinates());
 			Assert::AreEqual(true, c == sj.get_my_next_joint_connector().get_begin_coordinates());
 			Assert::AreEqual(true, c == sj.get_my_next_joint_connector().get_end_coordinates());
@@ -59,11 +59,11 @@ namespace JointTest
 			JointConnector con1(Coordinates(), end1, 0);
 			JointConnector con2(end1, end2, 0);
 			Joint j(con1);
-			ElbowJoint ej(con1,con2);
+			ElbowJoint ej(con1, con2);
 			ShoulderJoint sj(con1, Coordinates());
 			RestrictedShoulderJoint rsj(con1, Coordinates(), 120);
 			Coordinates c;
-	
+
 			Assert::AreEqual(true, end1 == j.get_my_next_joint_connector().get_end_coordinates());
 
 			Assert::AreEqual(true, end2 == ej.get_my_next_joint_connector().get_end_coordinates());
@@ -92,30 +92,22 @@ namespace JointTest
 			RestrictedShoulderJoint rsj;
 			rsj.set_coordinates(c);
 			Coordinates c2(2, 3, 4);
-			
+
 
 			Assert::AreEqual(true, c == j.get_coordinates());
-			j.set_x_coordinate(2);
-			j.set_y_coordinate(3);
-			j.set_z_coordinate(4);
+			j.set_coordinates(c2);
 			Assert::AreEqual(true, c2 == j.get_coordinates());
 
 			Assert::AreEqual(true, c == ej.get_coordinates());
-			ej.set_x_coordinate(2);
-			ej.set_y_coordinate(3);
-			ej.set_z_coordinate(4);
+			ej.set_coordinates(c2);
 			Assert::AreEqual(true, c2 == ej.get_coordinates());
 
 			Assert::AreEqual(true, c == sj.get_coordinates());
-			sj.set_x_coordinate(2);
-			sj.set_y_coordinate(3);
-			sj.set_z_coordinate(4);
+			sj.set_coordinates(c2);
 			Assert::AreEqual(true, c2 == sj.get_coordinates());
-			
+
 			Assert::AreEqual(true, c == rsj.get_coordinates());
-			rsj.set_x_coordinate(2);
-			rsj.set_y_coordinate(3);
-			rsj.set_z_coordinate(4);
+			rsj.set_coordinates(c2);
 			Assert::AreEqual(true, c2 == rsj.get_coordinates());
 
 		}
@@ -265,7 +257,7 @@ namespace JointTest
 
 			Joint j(con1);
 			float eps = 0.001;
-			Assert::AreEqual(true, abs(0-j.get_tg_alpha())<eps);
+			Assert::AreEqual(true, abs(0 - j.get_tg_alpha()) < eps);
 			j.set_tg_alpha(1);
 			Assert::AreEqual(true, abs(1 - j.get_tg_alpha()) < eps);
 		}
@@ -282,6 +274,20 @@ namespace JointTest
 			j.bend(2);
 			Assert::AreEqual(true, c == j.get_my_next_joint_connector().get_end_coordinates());
 		}
+
+		TEST_METHOD(bend_sj_1_q)
+		{
+			Coordinates end1(10, 10, 10);
+			JointConnector con1(Coordinates(), end1, 1);
+
+			ShoulderJoint j(con1);
+
+			Coordinates c(12, 12, sqrt(12));
+			j.set_tg_alpha(1);
+			j.bend(2);
+			Assert::AreEqual(true, c == j.get_my_next_joint_connector().get_end_coordinates());
+		}
+
 		TEST_METHOD(bend_zero_1_q)
 		{
 			Coordinates end1(10, 10, 10);
@@ -302,7 +308,7 @@ namespace JointTest
 
 			Joint j(con1);
 			float z = sqrt(3 * 10 * 10 - 2 * (con1.max_x() - 1) * (con1.max_x() - 1));
-			Coordinates c(con1.max_x()-1, con1.max_x()-1, -z);
+			Coordinates c(con1.max_x() - 1, con1.max_x() - 1, -z);
 			j.set_tg_alpha(1);
 			j.bend(4);
 			Assert::AreEqual(true, c == j.get_my_next_joint_connector().get_end_coordinates());
@@ -610,5 +616,5 @@ namespace JointTest
 
 	};
 
-	
+
 }

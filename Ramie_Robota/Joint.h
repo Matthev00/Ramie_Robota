@@ -2,8 +2,10 @@
 #pragma once
 #include "coordinates.h"
 #include <iostream>
+#include "JointConnector.h"
 #include "Wektor.h"
 
+// Only for task4
 class JointConnector
 {
 private:
@@ -18,11 +20,11 @@ public:
 
 
 	Coordinates get_begin_coordinates()const;
-	void set_begin_coordinates(const Coordinates);
+	void set_begin_coordinates(const Coordinates&);
 	Coordinates get_end_coordinates()const;
-	void set_end_coordinates(const Coordinates);
+	void set_end_coordinates(const Coordinates&);
 	Wektor get_direction()const;
-	void set_direction(const Wektor);
+	void set_direction(const Wektor&);
 
 	void update_directions();
 
@@ -35,7 +37,7 @@ public:
 	friend std::ostream& operator<<(std::ostream&, const JointConnector&);
 	friend std::istream& operator>>(std::istream&, JointConnector&);
 };
-
+//
 
 class Joint
 {
@@ -46,25 +48,20 @@ protected:
 public:
 	Joint();
 	Joint(const JointConnector&);
-	float get_x_coordinate()const;
-	float get_y_coordinate()const;
-	float get_z_coordinate()const;
-	Coordinates get_coordinates()const;
-	void set_x_coordinate(const float);
-	void set_y_coordinate(const float);
-	void set_z_coordinate(const float);
-	void set_coordinates(const Coordinates&);
-	void set_tg_alpha(const float);
-	float get_tg_alpha();
-	JointConnector get_my_next_joint_connector()const;
-	void set_my_next_joint_connector(const JointConnector&);
-	void bend(const int);
-	void bend_one_unit();
-	void bend_0_1();
-	void adjust_coords_of_next_joint_connector(const float);
+	virtual Coordinates get_coordinates()const;
+	virtual void set_coordinates(const Coordinates&);
+	virtual void set_tg_alpha(const float);
+	virtual float get_tg_alpha()const;
+	virtual JointConnector get_my_next_joint_connector()const;
+	virtual void set_my_next_joint_connector(const JointConnector&);
+	virtual void bend(const int);
+	virtual void bend_one_unit();
+	virtual void bend_0_1();
+	virtual void adjust_coords_of_next_joint_connector(const float);
+	virtual void print()const;
 	friend std::ostream& operator<<(std::ostream&, const Joint&);
 	friend std::istream& operator>>(std::istream&, Joint&);
-	void save_to_file(std::string);
-	void read_from_file(std::string);
+	virtual void save_to_file(std::string)const;
+	virtual void read_from_file(std::string);
 };
 
