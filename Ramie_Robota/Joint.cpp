@@ -25,6 +25,7 @@ Coordinates Joint::get_coordinates() const
 void Joint::set_coordinates(const Coordinates& coordinates)
 {
     this->coordinates = coordinates;
+    my_next_joint_connector.set_begin_coordinates(coordinates);
 }
 
 void Joint::set_tg_alpha(const float tg)

@@ -26,3 +26,9 @@ void ElbowJoint::print() const
 {
 	std::cout << coordinates << my_previous_joint_connector << my_next_joint_connector;
 }
+
+void ElbowJoint::set_coordinates(const Coordinates& coords)
+{
+	Joint::set_coordinates(coords);
+	my_previous_joint_connector.set_end_coordinates(coords);
+}

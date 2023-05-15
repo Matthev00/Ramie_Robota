@@ -1,6 +1,7 @@
 #pragma once
 #include "JointConnector.h"
 #include "Joint.h"
+#include "coordinates.h"
 
 
 class ElbowJoint :
@@ -14,5 +15,6 @@ public:
     JointConnector get_previous_joint_connector()const;
     void set_previous_joint_connector(const JointConnector&);
     void print() const override;
+    void set_coordinates(const Coordinates&);
 };
 

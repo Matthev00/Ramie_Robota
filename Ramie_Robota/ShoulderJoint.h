@@ -9,7 +9,7 @@ protected:
     int alpha;
 public:
     ShoulderJoint();
-    ShoulderJoint(const JointConnector&, const Coordinates&);
+    ShoulderJoint(const JointConnector&, const Coordinates& = Coordinates());
     double rotate(const int);
     double rotate_one_degree();
     int get_alpha()const;
