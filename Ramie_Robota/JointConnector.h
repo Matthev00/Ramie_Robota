@@ -5,18 +5,18 @@
 #include <math.h>
 #include "Wektor.h"
 
+/*
 class JointConnector
 {
 private:
 	Coordinates begin_coordinates;
 	Coordinates end_coordinates;
 	Wektor direction;
+	float tg_angle;
 	
 public:
-	JointConnector(Coordinates, Coordinates);
 	JointConnector();
-	
-	float count_length()const;
+	JointConnector(Coordinates, Coordinates, float);
 
 	
 	Coordinates get_begin_coordinates()const;
@@ -33,4 +33,8 @@ public:
 	float max_x()const;
 	float min_x()const;
 
+	friend std::ostream& operator<<(std::ostream&, const JointConnector&);
+	friend std::istream& operator>>(std::istream&, JointConnector&);
+
 };
+*/

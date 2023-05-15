@@ -10,6 +10,7 @@ struct Coordinates
 		this->y = y;
 		this->z = z;
 	}
+	bool operator==(Coordinates);
 	friend std::ostream& operator<<(std::ostream& out, const Coordinates& c);
 	friend std::istream& operator>>(std::istream& in, Coordinates& c);
 };
