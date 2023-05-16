@@ -148,7 +148,6 @@
     <ClInclude Include="ElbowJoint.h" />
     <ClInclude Include="Gripper.h" />
     <ClInclude Include="ExtandebleJointConnector.h" />
-    <ClInclude Include="ExtandebleJointConnector.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="JointConnector.h" />
     <ClInclude Include="RestrictedShoulderJoint.h" />
