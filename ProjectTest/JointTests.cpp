@@ -19,8 +19,14 @@
 #include "../RamieRobota/Gripper.cpp"
 #include "../RamieRobota/BaseJointConnector.h"
 #include "../RamieRobota/BaseJointConnector.cpp"
+#include "../RamieRobota/ExtandebleJointConnector.h"
+#include "../RamieRobota/ExtandebleJointConnector.cpp"
+#include "../RamieRobota/Wektor.h"
+#include "../RamieRobota/Wektor.cpp"
 // #include "../Ramie_Robota/JointConnector.h"
 // #include "../Ramie_Robota/JointConnector.cpp"
+
+const float EPSILON = 0.0001f;
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -620,6 +626,198 @@ namespace JointTest
 		}
 
 
+	};
+
+	TEST_CLASS(TestBasicJointConnector)
+	{
+	public:
+
+		TEST_METHOD(testConstructor)
+		{
+			Coordinates a(0, 0, 0), b(2, 3, 0);
+			BaseJointConnector Joint(a, b);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+		}
+		TEST_METHOD(testLenght)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			BaseJointConnector Joint(a, b);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f);
+		}
+	};
+	TEST_CLASS(TestJointConnector)
+	{
+	public:
+
+		TEST_METHOD(testConstructor)
+		{
+			Coordinates a(0, 0, 0), b(2, 3, 0);
+			float angle = 0.53f;
+			JointConnector Joint(a, b, angle);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_angle(), 0.53f);
+		}
+		TEST_METHOD(testLenght)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			float angle = 0.5f;
+			JointConnector Joint(a, b, angle);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_angle(), 0.5f);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f);
+		}
+		TEST_METHOD(testMaxX)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			float angle = 0.5f;
+			JointConnector Joint(a, b, angle);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_angle(), 0.5f);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f);
+			Assert::AreEqual(Joint.max_x(), float(sqrt(20)), EPSILON);
+		}
+		TEST_METHOD(testMaxX_negAngle)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			float angle = -0.5f;
+			JointConnector Joint(a, b, angle);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_angle(), -0.5f);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f);
+			Assert::AreEqual(Joint.max_x(), float(sqrt(20)), EPSILON);
+		}
+		TEST_METHOD(testMinX)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			float angle = 0.5f;
+			JointConnector Joint(a, b, angle);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_angle(), 0.5f);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f);
+			Assert::AreEqual(Joint.min_x(), float(-sqrt(20)), EPSILON);
+		}
+		TEST_METHOD(testMinX_negAngle)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			float angle = -0.5f;
+			JointConnector Joint(a, b, angle);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_angle(), -0.5f);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f);
+			Assert::AreEqual(Joint.min_x(), float(-sqrt(20)), EPSILON);
+		}
+	};
+	TEST_CLASS(TestJExtandebleointConnector)
+	{
+	public:
+
+		TEST_METHOD(testConstructor)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			Wektor wek(4, 3, 0);
+			ExtandebleJointConnector Joint(a, b);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f, EPSILON);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+		}
+		TEST_METHOD(testSetDirectionAndUpdateEnd)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			Wektor wek(4, 3, 0);
+			ExtandebleJointConnector Joint(a, b);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f, EPSILON);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+			wek = Wektor(12, 5, 0);
+			b = Coordinates(12, 5, 0);
+			Joint.set_directions_and_update_end(wek);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), 13.0f, EPSILON);
+		}
+		TEST_METHOD(testSetEndAndUpdateDirection)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			Wektor wek(4, 3, 0);
+			ExtandebleJointConnector Joint(a, b);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f, EPSILON);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+			wek = Wektor(12, 5, 0);
+			b = Coordinates(12, 5, 0);
+			Joint.set_end_and_update_directions(b);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), 13.0f, EPSILON);
+		}
+		TEST_METHOD(testExtend)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			Wektor wek(4, 3, 0);
+			ExtandebleJointConnector Joint(a, b);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f, EPSILON);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+			Joint.extend(2.0f);
+			wek = Wektor(8, 6, 0);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+		}
+		TEST_METHOD(testExtendFloat)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			Wektor wek(4, 3, 0);
+			ExtandebleJointConnector Joint(a, b);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f, EPSILON);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+			Joint.extend(1.5f);
+			wek = Wektor(6, 4.5, 0);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+		}
+		TEST_METHOD(testExtendByVal)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 0);
+			Wektor wek(4, 3, 0);
+			ExtandebleJointConnector Joint(a, b);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), 5.0f, EPSILON);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+			Joint.extend_by_len(8.0f);
+			Assert::AreEqual(Joint.get_lenght(), 13.0f, EPSILON);
+			Assert::AreEqual(Joint.get_end_coordinates().x, 10.4f, EPSILON);
+			Assert::AreEqual(Joint.get_end_coordinates().y, 7.8f, EPSILON);
+			Assert::AreEqual(Joint.get_end_coordinates().z, 0.0f, EPSILON);
+		}
+		TEST_METHOD(testExtendByVal_NonZeroZ)
+		{
+			Coordinates a(0, 0, 0), b(4, 3, 5);
+			Wektor wek(4, 3, 5);
+			ExtandebleJointConnector Joint(a, b);
+			Assert::AreEqual(Joint.get_begin_coordinates() == a, true);
+			Assert::AreEqual(Joint.get_end_coordinates() == b, true);
+			Assert::AreEqual(Joint.get_lenght(), float(sqrt(50)), EPSILON);
+			Assert::AreEqual(Joint.get_direction() == wek, true);
+			Joint.extend_by_len(8.0f);
+			Assert::AreEqual(Joint.get_lenght(), 15.071f, EPSILON); // 2.13137
+			Assert::AreEqual(Joint.get_end_coordinates().x, 8.52548f, EPSILON);
+			Assert::AreEqual(Joint.get_end_coordinates().y, 6.3941099f, EPSILON);
+			Assert::AreEqual(Joint.get_end_coordinates().z, 10.65684994f, EPSILON);
+		}
 	};
 
 
