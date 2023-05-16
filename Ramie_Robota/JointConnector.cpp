@@ -1,5 +1,14 @@
-#include "JointConnector.h"
+#include "Joint.h"
 
+JointConnector::JointConnector(Coordinates begin, Coordinates end)
+{
+	begin_coordinates = begin;
+	end_coordinates = end;
+	float x_diff = end_coordinates.x - begin_coordinates.x;
+	float y_diff = end_coordinates.y - begin_coordinates.y;
+	float z_diff = end_coordinates.z - begin_coordinates.z;
+	direction = Wektor(x_diff, y_diff, z_diff);
+}
 
 // Czy jest sens umozliwiac zmiane koncowych/wektora
 

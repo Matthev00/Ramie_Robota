@@ -15,3 +15,14 @@ std::istream& operator>>(std::istream& in,Coordinates& c)
     c.z = z;
     return in;
 }
+
+bool Coordinates::operator==(Coordinates other)
+{
+    float eps = 0.01;
+    if (abs(x - other.x) < eps &&
+        abs(y - other.y) < eps &&
+        abs(z - other.z) < eps) {
+        return true;
+    }
+    return false;
+}
