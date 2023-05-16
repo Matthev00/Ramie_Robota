@@ -129,8 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arm.cpp" />
+    <ClCompile Include="BaseJointConnector.cpp" />
     <ClCompile Include="coordinates.cpp" />
     <ClCompile Include="ElbowJoint.cpp" />
+    <ClCompile Include="ExtandebleJointConnector.cpp" />
     <ClCompile Include="Gripper.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="JointConnector.cpp" />
@@ -141,9 +143,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arm.h" />
+    <ClInclude Include="BaseJointConnector.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="ElbowJoint.h" />
     <ClInclude Include="Gripper.h" />
+    <ClInclude Include="ExtandebleJointConnector.h" />
+    <ClInclude Include="ExtandebleJointConnector.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="JointConnector.h" />
     <ClInclude Include="RestrictedShoulderJoint.h" />

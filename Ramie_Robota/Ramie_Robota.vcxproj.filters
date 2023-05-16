@@ -39,10 +39,10 @@
     <ClCompile Include="coordinates.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Gripper.cpp">
+    <ClCompile Include="BaseJointConnector.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="JointConnector.cpp">
+    <ClCompile Include="ExtandebleJointConnector.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,10 +68,10 @@
     <ClInclude Include="ElbowJoint.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Gripper.h">
+    <ClInclude Include="BaseJointConnector.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="JointConnector.h">
+    <ClInclude Include="ExtandebleJointConnector.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
