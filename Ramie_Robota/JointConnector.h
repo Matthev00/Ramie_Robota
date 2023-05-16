@@ -1,33 +1,25 @@
 #pragma once
 //Author: Krzysztof Gólcz
-#include "coordinates.h"
 #include <math.h>
+#include "BaseJointConnector.h"
 #include "Wektor.h"
+#include "coordinates.h"
 
-class JointConnector
+
+class JointConnector :
+	public BaseJointConnector
 {
-private:
-	Coordinates begin_coordinates;
-	Coordinates end_coordinates;
-	Wektor direction;
+protected:
 	float tg_angle;
 
 public:
 	JointConnector(Coordinates, Coordinates, float);
-
-	Coordinates get_begin_coordinates()const;
-	void set_begin_coordinates(const Coordinates);
-	Coordinates get_end_coordinates()const;
-	void set_end_coordinates(const Coordinates);
-	Wektor get_direction()const;
-	void set_direction(const Wektor);
-
-	void update_directions();
-
-	void update_end_coordinates();
-	float get_lenght()const;
+	float get_angle()const;
+	void set_angle(float);
 
 	float max_x()const;
 	float min_x()const;
 
+	friend std::ostream& operator<<(std::ostream&, const JointConnector&);
+	friend std::istream& operator>> (std::istream&, JointConnector&);
 };
