@@ -1,3 +1,4 @@
+// Author: Mateusz Ostaszewski
 #include <fstream>
 #include "ElbowJoint.h"
 

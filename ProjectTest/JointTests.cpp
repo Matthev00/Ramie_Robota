@@ -6,6 +6,8 @@
 #include "../Ramie_Robota/Joint.h"
 #include "../Ramie_Robota/coordinates.h"
 #include "../Ramie_Robota/Joint.cpp"
+#include "../Ramie_Robota/JointConnector.h"
+#include "../Ramie_Robota/JointConnector.cpp"
 #include "../Ramie_Robota/coordinates.cpp"
 #include "../Ramie_Robota/ElbowJoint.h"
 #include "../Ramie_Robota/ElbowJoint.cpp"
@@ -13,6 +15,8 @@
 #include "../Ramie_Robota/ShoulderJoint.cpp"
 #include "../Ramie_Robota/RestrictedShoulderJoint.h"
 #include "../Ramie_Robota/RestrictedShoulderJoint.cpp"
+#include "../Ramie_Robota/Gripper.h"
+#include "../Ramie_Robota/Gripper.cpp"
 // #include "../Ramie_Robota/JointConnector.h"
 // #include "../Ramie_Robota/JointConnector.cpp"
 

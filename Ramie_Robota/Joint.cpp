@@ -128,6 +128,37 @@ void Joint::bend_0_1()
     adjust_coords_of_next_joint_connector(x);
 }
 
+void Joint::re_bend()
+{
+    bool over = false;
+    float x = my_next_joint_connector.get_end_coordinates().x;
+    if (x >= 0) {
+        if (x - 0.1 >= my_next_joint_connector.min_x()) {
+            x -= 0.1;
+        }
+        else if (x + 0.1 <= my_next_joint_connector.max_x()) {
+            if (!over) {
+                x = my_next_joint_connector.min_x();
+                over = true;
+            }
+            else x += 0.1;
+        }
+    }
+    else {
+        if (x + 0.1 <= my_next_joint_connector.max_x()) {
+            x += 0.1;
+        }
+        else if (x - 0.1 >= my_next_joint_connector.min_x()) {
+            if (!over) {
+                x = my_next_joint_connector.max_x();
+                over = true;
+            }
+            else x -= 0.1;
+        }
+    }
+    adjust_coords_of_next_joint_connector(x);
+}
+
 void Joint::adjust_coords_of_next_joint_connector(const float x_end)
 {
     float x = x_end - my_next_joint_connector.get_begin_coordinates().x;

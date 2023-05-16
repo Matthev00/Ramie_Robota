@@ -1,3 +1,4 @@
+// Author: Mateusz Ostaszewski
 #include "Gripper.h"
 
 Gripper::Gripper()
