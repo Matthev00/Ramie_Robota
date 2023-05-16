@@ -3,20 +3,20 @@
 #include <math.h>
 #include <cmath>
 #include "CppUnitTest.h"
-#include "../Ramie_Robota/Joint.h"
-#include "../Ramie_Robota/coordinates.h"
-#include "../Ramie_Robota/Joint.cpp"
-#include "../Ramie_Robota/JointConnector.h"
-#include "../Ramie_Robota/JointConnector.cpp"
-#include "../Ramie_Robota/coordinates.cpp"
-#include "../Ramie_Robota/ElbowJoint.h"
-#include "../Ramie_Robota/ElbowJoint.cpp"
-#include "../Ramie_Robota/ShoulderJoint.h"
-#include "../Ramie_Robota/ShoulderJoint.cpp"
-#include "../Ramie_Robota/RestrictedShoulderJoint.h"
-#include "../Ramie_Robota/RestrictedShoulderJoint.cpp"
-#include "../Ramie_Robota/Gripper.h"
-#include "../Ramie_Robota/Gripper.cpp"
+#include "../RamieRobota/Joint.h"
+#include "../RamieRobota/coordinates.h"
+#include "../RamieRobota/Joint.cpp"
+#include "../RamieRobota/JointConnector.h"
+#include "../RamieRobota/JointConnector.cpp"
+#include "../RamieRobota/coordinates.cpp"
+#include "../RamieRobota/ElbowJoint.h"
+#include "../RamieRobota/ElbowJoint.cpp"
+#include "../RamieRobota/ShoulderJoint.h"
+#include "../RamieRobota/ShoulderJoint.cpp"
+#include "../RamieRobota/RestrictedShoulderJoint.h"
+#include "../RamieRobota/RestrictedShoulderJoint.cpp"
+#include "../RamieRobota/Gripper.h"
+#include "../RamieRobota/Gripper.cpp"
 // #include "../Ramie_Robota/JointConnector.h"
 // #include "../Ramie_Robota/JointConnector.cpp"
 
@@ -622,3 +622,4 @@ namespace JointTest
 
 
 }
+
