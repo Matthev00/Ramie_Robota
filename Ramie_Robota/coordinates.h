@@ -1,3 +1,4 @@
+// Author: Mateusz Ostaszewski
 #pragma once
 #include <istream>
 struct Coordinates

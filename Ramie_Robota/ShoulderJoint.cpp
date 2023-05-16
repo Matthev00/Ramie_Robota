@@ -6,10 +6,11 @@
 
 ShoulderJoint::ShoulderJoint() : Joint()
 {
+	coordinates = Coordinates();
 	alpha = 0;
 }
 
-ShoulderJoint::ShoulderJoint(const JointConnector& next_joint_connector, const Coordinates& coords = Coordinates()) : Joint(next_joint_connector)
+ShoulderJoint::ShoulderJoint(const JointConnector& next_joint_connector, const Coordinates& coords) : Joint(next_joint_connector)
 {
 	coordinates = coords;
 	alpha = 0;

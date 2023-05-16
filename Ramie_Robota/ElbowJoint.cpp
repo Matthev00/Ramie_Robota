@@ -1,3 +1,4 @@
+// Author: Mateusz Ostaszewski
 #include <fstream>
 #include "ElbowJoint.h"
 
@@ -25,4 +26,10 @@ void ElbowJoint::set_previous_joint_connector(const JointConnector& previous_joi
 void ElbowJoint::print() const
 {
 	std::cout << coordinates << my_previous_joint_connector << my_next_joint_connector;
+}
+
+void ElbowJoint::set_coordinates(const Coordinates& coords)
+{
+	Joint::set_coordinates(coords);
+	my_previous_joint_connector.set_end_coordinates(coords);
 }

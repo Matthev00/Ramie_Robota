@@ -1,3 +1,4 @@
+// Author: Mateusz Ostaszewski
 #include "RestrictedShoulderJoint.h"
 #include <fstream>
 

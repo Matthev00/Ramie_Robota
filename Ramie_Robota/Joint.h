@@ -4,8 +4,7 @@
 #include <iostream>
 #include "JointConnector.h"
 #include "Wektor.h"
-
-// Only for task4
+/*
 class JointConnector
 {
 private:
@@ -16,7 +15,7 @@ private:
 
 public:
 	JointConnector();
-	JointConnector(Coordinates, Coordinates, float = 0.0f);
+	JointConnector(Coordinates, Coordinates, float);
 
 
 	Coordinates get_begin_coordinates()const;
@@ -26,18 +25,20 @@ public:
 	Wektor get_direction()const;
 	void set_direction(const Wektor&);
 
+
+	void set_tg_angle(const float);
 	void update_directions();
 
 	void update_end_coordinates();
 	float get_lenght()const;
 	float max_x()const;
 	float min_x()const;
-	void set_tg_angle(const float);
 
 	friend std::ostream& operator<<(std::ostream&, const JointConnector&);
 	friend std::istream& operator>>(std::istream&, JointConnector&);
+
 };
-//
+*/
 
 class Joint
 {
@@ -57,6 +58,7 @@ public:
 	virtual void bend(const int);
 	virtual void bend_one_unit();
 	virtual void bend_0_1();
+	virtual void re_bend();
 	virtual void adjust_coords_of_next_joint_connector(const float);
 	virtual void print()const;
 	friend std::ostream& operator<<(std::ostream&, const Joint&);
