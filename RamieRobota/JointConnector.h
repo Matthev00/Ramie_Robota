@@ -13,8 +13,7 @@ protected:
 	float tg_angle;
 
 public:
-	JointConnector() :BaseJointConnector() {};
-	JointConnector(Coordinates, Coordinates, float);
+	JointConnector(Coordinates=Coordinates(), Coordinates = Coordinates(), float=0.0f);
 	float get_angle()const;
 	void set_angle(float);
 

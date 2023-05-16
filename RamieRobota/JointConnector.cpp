@@ -1,6 +1,7 @@
 #include "JointConnector.h"
 
-JointConnector::JointConnector(Coordinates begin = Coordinates(), Coordinates end = Coordinates(), float tg = 0) : BaseJointConnector(begin, end)
+
+JointConnector::JointConnector(Coordinates begin, Coordinates end, float tg) : BaseJointConnector(begin, end)
 {
 	tg_angle = tg;
 }

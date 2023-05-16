@@ -12,7 +12,7 @@ protected:
 	Coordinates end_coordinates;
 
 public:
-	BaseJointConnector() {};
+	BaseJointConnector();
 	BaseJointConnector(Coordinates, Coordinates);
 
 	Coordinates get_begin_coordinates()const;

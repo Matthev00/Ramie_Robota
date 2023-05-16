@@ -2,6 +2,12 @@
 
 // Czy jest sens umozliwiac zmiane koncowych/wektora
 
+BaseJointConnector::BaseJointConnector()
+{
+	begin_coordinates = Coordinates();
+	end_coordinates = Coordinates();
+}
+
 BaseJointConnector::BaseJointConnector(Coordinates begin, Coordinates end)
 {
 	begin_coordinates = begin;

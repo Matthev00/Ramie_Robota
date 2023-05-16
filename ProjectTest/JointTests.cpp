@@ -17,6 +17,8 @@
 #include "../RamieRobota/RestrictedShoulderJoint.cpp"
 #include "../RamieRobota/Gripper.h"
 #include "../RamieRobota/Gripper.cpp"
+#include "../RamieRobota/BaseJointConnector.h"
+#include "../RamieRobota/BaseJointConnector.cpp"
 // #include "../Ramie_Robota/JointConnector.h"
 // #include "../Ramie_Robota/JointConnector.cpp"
 
