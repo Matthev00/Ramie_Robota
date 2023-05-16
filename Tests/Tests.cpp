@@ -1,6 +1,8 @@
+
 #include "CppUnitTest.h"
 #include "../Ramie_Robota/Arm.h"
 #include "../Ramie_Robota/Arm.cpp"
+
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -33,7 +35,7 @@ namespace arm_tests
 		{
 			Arm arm;
 			arm.set_range(10);
-			Assert::AreEqual(10.0, arm.get_range());
+			Assert::AreEqual(10.0f, arm.get_range());
 		}
 		TEST_METHOD(set_range_negative_range)
 		{

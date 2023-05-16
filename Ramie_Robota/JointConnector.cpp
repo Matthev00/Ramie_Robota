@@ -1,4 +1,5 @@
-#include "Joint.h"
+//#include "Joint.h"
+#include "JointConnector.h"
 
 JointConnector::JointConnector()
 {

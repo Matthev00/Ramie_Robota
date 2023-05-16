@@ -1,3 +1,4 @@
+// Author: Mateusz Ostaszewski
 #include "coordinates.h"
 
 std::ostream& operator<<(std::ostream& out, const Coordinates& c)

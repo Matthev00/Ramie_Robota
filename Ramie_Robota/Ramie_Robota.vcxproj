@@ -131,6 +131,7 @@
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="coordinates.cpp" />
     <ClCompile Include="ElbowJoint.cpp" />
+    <ClCompile Include="Gripper.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="JointConnector.cpp" />
     <ClCompile Include="Ramie_Robota.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Arm.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="ElbowJoint.h" />
+    <ClInclude Include="Gripper.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="JointConnector.h" />
     <ClInclude Include="RestrictedShoulderJoint.h" />
