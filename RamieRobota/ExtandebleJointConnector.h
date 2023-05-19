@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
 #include "Wektor.h"
-#include "BaseJointConnector.h"
+#include "JointConnector.h"
 class ExtandebleJointConnector :
-	public BaseJointConnector
+	public JointConnector
 {
 protected:
 	Wektor direction;
@@ -12,7 +12,8 @@ protected:
 
 	void update_end_coordinates();
 public:
-	ExtandebleJointConnector(Coordinates, Coordinates);
+	ExtandebleJointConnector();
+	ExtandebleJointConnector(Coordinates, Coordinates, float=0.0f);
 
 	Wektor get_direction() const;
 
@@ -27,6 +28,7 @@ public:
 	void extend(const float);
 
 	void extend_by_len(const float);
+
 
 	friend std::ostream& operator<<(std::ostream&, const ExtandebleJointConnector&);
 	friend std::istream& operator>> (std::istream&, ExtandebleJointConnector&);

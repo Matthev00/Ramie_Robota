@@ -3,7 +3,12 @@
 
 JointConnector::JointConnector(Coordinates begin, Coordinates end, float tg) : BaseJointConnector(begin, end)
 {
-	tg_angle = tg;
+	if (end.x - begin.x == 0) {
+		this->tg_angle = 0;
+	}
+	else {
+		this->tg_angle = (end.y - begin.y) / (end.x - begin.x);
+	}
 }
 
 float JointConnector::get_angle() const
@@ -22,12 +27,12 @@ float JointConnector::max_x() const
 	float direction_squared = get_lenght() * get_lenght();
 	float tg_squared = tg_angle * tg_angle;
 	outcome = sqrt(direction_squared / (1 + tg_squared));
-	return outcome;
+	return get_begin_coordinates().x + outcome;
 }
 
 float JointConnector::min_x() const
 {
-	return -max_x();
+	return -max_x() + 2 * get_begin_coordinates().x;
 }
 
 std::ostream& operator<<(std::ostream & out, const JointConnector & toOut)

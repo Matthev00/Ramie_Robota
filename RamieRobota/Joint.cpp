@@ -38,7 +38,7 @@ float Joint::get_tg_alpha() const
     return tg_alpha;
 }
 
-JointConnector Joint::get_my_next_joint_connector() const
+JointConnector& Joint::get_my_next_joint_connector()
 {
     return my_next_joint_connector;
 }
@@ -50,12 +50,11 @@ void Joint::set_my_next_joint_connector(const JointConnector& new_jc)
 
 void Joint::bend(const int incrment)
 {
-    bool over = false;
     float x = my_next_joint_connector.get_end_coordinates().x;
     if (x >= 0) {
         for (int i = 1; i <= incrment; i++)
         {
-            if (x + 1 <= my_next_joint_connector.max_x()) {
+            if (x + 1 <= my_next_joint_connector.max_x() && !over) {
                 x += 1;
             }
             else if (x - 1 >= my_next_joint_connector.min_x()) {
@@ -74,7 +73,7 @@ void Joint::bend(const int incrment)
     else {
         for (int i = 1; i <= incrment; i++)
         {
-            if (x - 1 >= my_next_joint_connector.min_x()) {
+            if (x - 1 >= my_next_joint_connector.min_x() && !over) {
                 x -= 1;
             }
             else if (x + 1 <= my_next_joint_connector.max_x()) {
@@ -99,10 +98,9 @@ void Joint::bend_one_unit()
 
 void Joint::bend_0_1()
 {
-    bool over = false;
     float x = my_next_joint_connector.get_end_coordinates().x;
     if (x >= 0) {
-        if (x + 0.1 <= my_next_joint_connector.max_x()) {
+        if (x + 0.1 <= my_next_joint_connector.max_x() && !over) {
             x += 0.1;
         }
         else if (x - 0.1 >= my_next_joint_connector.min_x()) {
@@ -114,7 +112,7 @@ void Joint::bend_0_1()
         }
     }
     else {
-        if (x - 0.1 >= my_next_joint_connector.min_x()) {
+        if (x - 0.1 >= my_next_joint_connector.min_x() && !over) {
             x -= 0.1;
         }
         else if (x + 0.1 <= my_next_joint_connector.max_x()) {
@@ -130,10 +128,9 @@ void Joint::bend_0_1()
 
 void Joint::re_bend()
 {
-    bool over = false;
     float x = my_next_joint_connector.get_end_coordinates().x;
     if (x >= 0) {
-        if (x - 0.1 >= my_next_joint_connector.min_x()) {
+        if (x - 0.1 >= my_next_joint_connector.min_x() && !over) {
             x -= 0.1;
         }
         else if (x + 0.1 <= my_next_joint_connector.max_x()) {
@@ -145,7 +142,7 @@ void Joint::re_bend()
         }
     }
     else {
-        if (x + 0.1 <= my_next_joint_connector.max_x()) {
+        if (x + 0.1 <= my_next_joint_connector.max_x() && !over) {
             x += 0.1;
         }
         else if (x - 0.1 >= my_next_joint_connector.min_x()) {
@@ -156,21 +153,49 @@ void Joint::re_bend()
             else x -= 0.1;
         }
     }
-    adjust_coords_of_next_joint_connector(x);
+    adjust_coords_of_next_joint_connector_re_bend(x);
 }
 
 void Joint::adjust_coords_of_next_joint_connector(const float x_end)
 {
     float x = x_end - my_next_joint_connector.get_begin_coordinates().x;
-    float y = tg_alpha * x - my_next_joint_connector.get_begin_coordinates().y;
+    float y = tg_alpha * x;
     float old_z = my_next_joint_connector.get_end_coordinates().z;
     float lenght = my_next_joint_connector.get_lenght();
-    float new_z = sqrt(lenght * lenght - x * x - y * y);
+    float help = lenght * lenght - x * x - y * y;
+    if (help < 0) {
+        help = 0;
+    }
+    float new_z = sqrt(help);
     float begin_z = my_next_joint_connector.get_begin_coordinates().z;
     float z = (begin_z + new_z < old_z) ? begin_z + new_z : begin_z - new_z;
     Coordinates coords(
         x + my_next_joint_connector.get_begin_coordinates().x,
-        y + my_next_joint_connector.get_begin_coordinates().y,
+        y + coordinates.y,
+        z);
+    my_next_joint_connector.set_end_coordinates(coords);
+}
+
+void Joint::adjust_coords_of_next_joint_connector_re_bend(const float x_end)
+{
+    float x = x_end - my_next_joint_connector.get_begin_coordinates().x;
+    float y = tg_alpha * x;
+    float old_z = my_next_joint_connector.get_end_coordinates().z;
+    float lenght = my_next_joint_connector.get_lenght();
+    float help = lenght * lenght - x * x - y * y;
+    if (help < 0) {
+        help = 0;
+    }
+    float new_z = sqrt(help);
+    float begin_z = my_next_joint_connector.get_begin_coordinates().z;
+    float z = begin_z + new_z;
+    if (coordinates.z > old_z) {
+        z = begin_z - new_z;
+    }
+    
+    Coordinates coords(
+        x + my_next_joint_connector.get_begin_coordinates().x,
+        y + coordinates.y,
         z);
     my_next_joint_connector.set_end_coordinates(coords);
 }

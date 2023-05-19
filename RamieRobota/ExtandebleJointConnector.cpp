@@ -1,6 +1,10 @@
 #include "ExtandebleJointConnector.h"
 
-ExtandebleJointConnector::ExtandebleJointConnector(Coordinates begin, Coordinates end) : BaseJointConnector(begin, end)
+ExtandebleJointConnector::ExtandebleJointConnector(): JointConnector()
+{
+}
+
+ExtandebleJointConnector::ExtandebleJointConnector(Coordinates begin, Coordinates end, float tg) : JointConnector(begin, end, tg)
 {
 	float x_diff = end_coordinates.x - begin_coordinates.x;
 	float y_diff = end_coordinates.y - begin_coordinates.y;
@@ -17,6 +21,7 @@ void ExtandebleJointConnector::set_direction(const Wektor& newDirection)
 {
 	direction = newDirection;
 }
+
 
 
 void ExtandebleJointConnector::update_directions()

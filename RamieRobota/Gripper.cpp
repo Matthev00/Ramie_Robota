@@ -3,6 +3,8 @@
 
 Gripper::Gripper()
 {
+	range = 1.0f;
+	closed = false;
 }
 
 Gripper::Gripper(const Coordinates& coords, const float range)
@@ -22,7 +24,7 @@ void Gripper::set_coordinates(const Coordinates& coords)
 	this->coords = coords;
 }
 
-bool Gripper::if_closed() const
+bool Gripper::is_closed() const
 {
 	return closed;
 }
