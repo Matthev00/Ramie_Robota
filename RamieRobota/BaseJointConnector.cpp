@@ -32,6 +32,7 @@ Coordinates BaseJointConnector::get_end_coordinates() const
 void BaseJointConnector::set_end_coordinates(const Coordinates& newEnd)
 {
 	end_coordinates = newEnd;
+
 }
 
 

@@ -13,7 +13,7 @@ public:
 	Gripper(const Coordinates&, const float = 1.0f);
 	Coordinates get_coordinates()const;
 	void set_coordinates(const Coordinates&);
-	bool if_closed()const;
+	bool is_closed()const;
 	void close();
 	void open();
 	float get_range()const;

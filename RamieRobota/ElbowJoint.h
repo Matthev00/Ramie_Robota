@@ -1,6 +1,6 @@
 // Author: Mateusz Ostaszewski
 #pragma once
-#include "JointConnector.h"
+#include "ExtandebleJointConnector.h"
 #include "Joint.h"
 #include "coordinates.h"
 
