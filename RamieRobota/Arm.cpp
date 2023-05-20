@@ -120,7 +120,9 @@ void Arm::update_after_elbow_forearm_movement(std::vector<std::vector<Coordinate
 
 void Arm::update_tg(const float tg)
 {
+	this->tg = tg;
 	arm_part.set_angle(tg);
+	shoulder.set_tg_alpha(tg);
 	elbow.set_tg_alpha(tg);
 	elbow.get_my_next_joint_connector().set_angle(tg);
 	forearm.set_angle(tg);
@@ -296,6 +298,36 @@ bool Arm::catch_object(const Coordinates& target)
 void Arm::release()
 {
 	gripper.open();
+}
+
+Coordinates Arm::get_start_coords() const
+{
+	return start_coords;
+}
+
+ShoulderJoint Arm::get_shoulder() const
+{
+	return shoulder;
+}
+
+ElbowJoint Arm::get_elbow() const
+{
+	return elbow;
+}
+
+JointConnector Arm::get_arm_part() const
+{
+	return arm_part;
+}
+
+ExtandebleJointConnector Arm::get_forearm() const
+{
+	return forearm;
+}
+
+Gripper Arm::get_gripper() const
+{
+	return gripper;
 }
 
 

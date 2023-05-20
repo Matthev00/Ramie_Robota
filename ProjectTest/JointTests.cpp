@@ -891,6 +891,43 @@ namespace JointTest
 			Arm arm(arm_part, forearm, Coordinates(10, 10, 10));
 			Assert::AreEqual(1.0f, arm.get_tg(), 0.01f);
 		}
+		TEST_METHOD(uptadete_tg)
+		{
+			JointConnector arm_part(Coordinates(0, 0, 0), Coordinates(5, 5, 5));
+			ExtandebleJointConnector forearm(Coordinates(5, 5, 5), Coordinates(10, 10, 10));
+			Arm arm(arm_part, forearm, Coordinates(10, 10, 10));
+			arm.update_tg(3);
+
+			Assert::AreEqual(3.0f, arm.get_tg(), 0.01f);
+			Assert::AreEqual(3.0f, arm.get_elbow().get_tg_alpha(), 0.01f);
+			Assert::AreEqual(3.0f, arm.get_shoulder().get_tg_alpha(), 0.01f);
+			Assert::AreEqual(3.0f, arm.get_arm_part().get_angle(), 0.01f);
+			Assert::AreEqual(3.0f, arm.get_forearm().get_angle(), 0.01f);
+		}
+
+		TEST_METHOD(catch_object)
+		{
+			JointConnector arm_part(Coordinates(0, 0, 0), Coordinates(5, 5, 5));
+			ExtandebleJointConnector forearm(Coordinates(5, 5, 5), Coordinates(10, 10, 10));
+			Arm arm(arm_part, forearm, Coordinates(0, 0, 0));
+
+			Assert::AreEqual(true, arm.catch_object(Coordinates(10, 10, 10)));
+			Assert::AreEqual(true, arm.get_gripper().is_closed());
+
+		}
+
+		TEST_METHOD(released)
+		{
+			JointConnector arm_part(Coordinates(0, 0, 0), Coordinates(5, 5, 5));
+			ExtandebleJointConnector forearm(Coordinates(5, 5, 5), Coordinates(10, 10, 10));
+			Arm arm(arm_part, forearm, Coordinates(0, 0, 0));
+
+			Assert::AreEqual(true, arm.catch_object(Coordinates(10, 10, 10)));
+			Assert::AreEqual(true, arm.get_gripper().is_closed());
+			arm.release();
+			Assert::AreEqual(false, arm.get_gripper().is_closed());
+
+		}
 	};
 
 }

@@ -37,4 +37,11 @@ public:
 
 	bool catch_object(const Coordinates&);
 	void release();
+
+	Coordinates get_start_coords()const;
+	ShoulderJoint get_shoulder()const;
+	ElbowJoint get_elbow()const;
+	JointConnector get_arm_part()const;
+	ExtandebleJointConnector get_forearm()const;
+	Gripper get_gripper()const;
 };
