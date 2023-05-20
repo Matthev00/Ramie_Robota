@@ -34,4 +34,7 @@ public:
 
 	float get_tg() const;
 	float count_end_forearm_x()const;
+
+	bool catch_object(const Coordinates&);
+	void release();
 };

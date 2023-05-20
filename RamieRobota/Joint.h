@@ -27,8 +27,8 @@ public:
 	virtual void bend_one_unit();
 	virtual void bend_0_1();
 	virtual void re_bend();
-	virtual void adjust_coords_of_next_joint_connector(const float);
-	virtual void adjust_coords_of_next_joint_connector_re_bend(const float);
+	virtual void adjust_coords_of_next_joint_connector(const float, bool=false);
+	virtual void adjust_coords_of_next_joint_connector_re_bend(const float, bool=false);
 	virtual void print()const;
 	friend std::ostream& operator<<(std::ostream&, const Joint&);
 	friend std::istream& operator>>(std::istream&, Joint&);
