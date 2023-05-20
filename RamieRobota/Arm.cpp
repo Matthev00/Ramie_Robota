@@ -120,7 +120,9 @@ void Arm::update_after_elbow_forearm_movement(std::vector<std::vector<Coordinate
 
 void Arm::update_tg(const float tg)
 {
+	this->tg = tg;
 	arm_part.set_angle(tg);
+	shoulder.set_tg_alpha(tg);
 	elbow.set_tg_alpha(tg);
 	elbow.get_my_next_joint_connector().set_angle(tg);
 	forearm.set_angle(tg);
@@ -137,7 +139,7 @@ std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 	if (!if_reachable(target)) {
 		throw "Target out of range!";
 	}
-	float eps = 0.01;
+	float eps = 0.1;
 	float elbow_lenght = arm_part.get_lenght();
 
 	if (target_distance > elbow_lenght) {
@@ -236,17 +238,19 @@ std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 std::vector<std::vector<Coordinates>> Arm::back_to_starting_pos()
 {
 	std::vector<std::vector<Coordinates>> coords_arr(4);
-	float eps = 0.01f;
+	float eps = 0.1f;
 	while (shoulder.get_alpha() != 0) {
-		shoulder.rotate_one_degree();
+		tg=shoulder.rotate_one_degree();
+		update_tg(tg);
 		update_after_shoulder_movement(coords_arr);
+		
 	}
-	while (abs(arm_part.get_end_coordinates().x)<eps)
+	while (abs(arm_part.get_end_coordinates().x)>eps)
 	{
 		shoulder.re_bend();
 		update_after_shoulder_re_bend(coords_arr, true);
 	}
-	while (abs(forearm.get_end_coordinates().x) < eps)
+	while (abs(forearm.get_end_coordinates().x) > eps)
 	{
 		elbow.re_bend();
 		update_after_elbow_forearm_movement(coords_arr);
@@ -280,6 +284,50 @@ float Arm::count_end_forearm_x() const
 	float y = arm_part.get_lenght();
 	float x = arm_part.get_end_coordinates().x;
 	return len * x / y;
+}
+
+bool Arm::catch_object(const Coordinates& target)
+{
+	if (count_distance(gripper.get_coordinates(), target) <= gripper.get_range()) {
+		gripper.close();
+		return true;
+	}
+	return false;
+}
+
+void Arm::release()
+{
+	gripper.open();
+}
+
+Coordinates Arm::get_start_coords() const
+{
+	return start_coords;
+}
+
+ShoulderJoint Arm::get_shoulder() const
+{
+	return shoulder;
+}
+
+ElbowJoint Arm::get_elbow() const
+{
+	return elbow;
+}
+
+JointConnector Arm::get_arm_part() const
+{
+	return arm_part;
+}
+
+ExtandebleJointConnector Arm::get_forearm() const
+{
+	return forearm;
+}
+
+Gripper Arm::get_gripper() const
+{
+	return gripper;
 }
 
 

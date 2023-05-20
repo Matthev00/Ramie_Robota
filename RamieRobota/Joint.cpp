@@ -50,7 +50,16 @@ void Joint::set_my_next_joint_connector(const JointConnector& new_jc)
 
 void Joint::bend(const int incrment)
 {
+    double pi = 4.0 * std::atan(1.0);
     float x = my_next_joint_connector.get_end_coordinates().x;
+    /*
+    bool y_true = false;
+    if (tg_alpha > tan(45 * pi / 180) || (tg_alpha < tan(135 * pi / 180))) {
+        ////work on y
+        y_true = true;
+        float x = my_next_joint_connector.get_end_coordinates().x;
+    }
+    */
     if (x >= 0) {
         for (int i = 1; i <= incrment; i++)
         {
@@ -156,7 +165,7 @@ void Joint::re_bend()
     adjust_coords_of_next_joint_connector_re_bend(x);
 }
 
-void Joint::adjust_coords_of_next_joint_connector(const float x_end)
+void Joint::adjust_coords_of_next_joint_connector(const float x_end, bool reversed)
 {
     float x = x_end - my_next_joint_connector.get_begin_coordinates().x;
     float y = tg_alpha * x;
@@ -176,7 +185,7 @@ void Joint::adjust_coords_of_next_joint_connector(const float x_end)
     my_next_joint_connector.set_end_coordinates(coords);
 }
 
-void Joint::adjust_coords_of_next_joint_connector_re_bend(const float x_end)
+void Joint::adjust_coords_of_next_joint_connector_re_bend(const float x_end, bool reversed)
 {
     float x = x_end - my_next_joint_connector.get_begin_coordinates().x;
     float y = tg_alpha * x;
