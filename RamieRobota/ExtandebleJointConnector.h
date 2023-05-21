@@ -7,6 +7,7 @@ class ExtandebleJointConnector :
 {
 protected:
 	Wektor direction;
+	float inital_length;
 
 	void update_directions();
 
@@ -18,6 +19,8 @@ public:
 	Wektor get_direction() const;
 
 	void set_direction(const Wektor& newDirection);
+
+	float get_initial_length()const;
 
 	void set_directions_and_update_end(const Wektor& direct);
 

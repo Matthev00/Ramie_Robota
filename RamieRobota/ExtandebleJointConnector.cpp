@@ -10,6 +10,7 @@ ExtandebleJointConnector::ExtandebleJointConnector(Coordinates begin, Coordinate
 	float y_diff = end_coordinates.y - begin_coordinates.y;
 	float z_diff = end_coordinates.z - begin_coordinates.z;
 	direction = Wektor(x_diff, y_diff, z_diff);
+	inital_length = direction.count_distance();
 }
 
 Wektor ExtandebleJointConnector::get_direction()const
@@ -20,6 +21,11 @@ Wektor ExtandebleJointConnector::get_direction()const
 void ExtandebleJointConnector::set_direction(const Wektor& newDirection)
 {
 	direction = newDirection;
+}
+
+float ExtandebleJointConnector::get_initial_length() const
+{
+	return inital_length;
 }
 
 
