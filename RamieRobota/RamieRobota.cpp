@@ -27,7 +27,7 @@ void display() {
 
     gluLookAt(cameraX, cameraY, cameraZ, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
-    // Draw your 3D objects here
+    // Draw 3D Axies
 
     glColor3f(0, 1, 0);
     glLineWidth(1.0f);
@@ -70,7 +70,7 @@ void display() {
 }
 
 void specialKeys(int key, int x, int y) {
-    float cameraSpeed = 0.1f;  // Adjust the speed as needed
+    float cameraSpeed = 0.1f; 
 
     switch (key) {
     case GLUT_KEY_UP:
@@ -85,10 +85,10 @@ void specialKeys(int key, int x, int y) {
     case GLUT_KEY_RIGHT:
         cameraX += cameraSpeed;
         break;
-    case GLUT_KEY_PAGE_UP:
+    case GLUT_KEY_F1:
         cameraY += cameraSpeed;
         break;
-    case GLUT_KEY_PAGE_DOWN:
+    case GLUT_KEY_F2:
         cameraY -= cameraSpeed;
         break;
     }
@@ -100,15 +100,11 @@ void specialKeys(int key, int x, int y) {
 
 
 
-
-
-
-
 int main(int argc, char** argv) {
     JointConnector arm_part(Coordinates(0, 0, 0), Coordinates(0, 0, 10));
     ExtandebleJointConnector forearm(Coordinates(0, 0, 10), Coordinates(0, 0, 20));
     Arm arm(arm_part, forearm);
-    Coordinates target(-5, 5, 5);
+    Coordinates target(2, 5, 5);
     result = arm.reach_target(target);
     i = result[1].size() - 1;
 
@@ -136,7 +132,7 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(800, 800);
-    glutCreateWindow("OpenGL Window");
+    glutCreateWindow("Outcome window");
 
     glEnable(GL_DEPTH_TEST);
 
