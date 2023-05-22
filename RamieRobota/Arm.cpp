@@ -130,7 +130,6 @@ void Arm::update_tg(const float tg)
 
 std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 {
-	// coords arr
 	std::vector<std::vector<Coordinates>> coords_arr(4);
 	coords_arr[0].push_back(shoulder.get_coordinates());
 	coords_arr[1].push_back(elbow.get_coordinates());
@@ -145,7 +144,6 @@ std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 	float elbow_lenght = arm_part.get_lenght();
 
 	if (target_distance > elbow_lenght) {
-		// Dostosuj dugo forearm
 		while (abs(lenght - target_distance) >= eps) {
 			forearm.extend(0.97f);
 			elbow.get_my_next_joint_connector().set_end_coordinates(forearm.get_end_coordinates());
@@ -153,15 +151,10 @@ std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 			update_after_elbow_forearm_movement(coords_arr);
 		}
 	}
-	/*
-	*zegij bark troche
-	*rotuj
-	*zegnij bark
-	*/
 	shoulder.bend_one_unit();
 	update_after_shoulder_movement(coords_arr, true);
 
-	////// Do poprawy
+
 	float old_distance = count_distance(elbow.get_coordinates(), target);
 	float new_distance = old_distance - 0.00001;
 	while (new_distance < old_distance || !same_quarter(target, elbow.get_coordinates()))

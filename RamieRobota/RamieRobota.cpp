@@ -14,6 +14,8 @@ float cameraZ = 5.0f;
 std::vector < std::vector<Coordinates>>result;
 Coordinates target(2, 5, 5);
 int i;
+int catched = INT_MAX;
+int released = INT_MAX;
 const int SCALE = 10.0f;
 
 
@@ -62,13 +64,26 @@ void display() {
 
     // punkt
     glPointSize(20);
-    glColor3f(0.5, 0, 0.5);
+    glColor3f(0.0, 1.0, 0);
     glBegin(GL_POINTS);
     glVertex3d(result[1][i].x / SCALE, result[1][i].y / SCALE, result[1][i].z / SCALE);
-    glVertex3d(result[2][i].x / SCALE, result[2][i].y / SCALE, result[2][i].z / SCALE);
+    //glVertex3d(result[2][i].x / SCALE, result[2][i].y / SCALE, result[2][i].z / SCALE);
 
-    glColor3f(0.0f, 0.2f, 1.0f);
-    glVertex3d(target.x / SCALE, target.y / SCALE, target.z / SCALE);
+    if (i < catched) {
+        glColor3f(0.0, 1.0, 0);
+        glVertex3d(result[2][i].x / SCALE, result[2][i].y / SCALE, result[2][i].z / SCALE);
+        glColor3f(0.0f, 0.0f, 1.0f);
+        glVertex3d(target.x / SCALE, target.y / SCALE, target.z / SCALE);
+    }
+    else if (i < released) {
+        glColor3f(1.0f, 0.0f, 0.0f);
+        glVertex3d(result[2][i].x / SCALE, result[2][i].y / SCALE, result[2][i].z / SCALE);
+    }
+    else {
+        glColor3f(0.0, 1.0, 0);
+        glVertex3d(result[2][i].x / SCALE, result[2][i].y / SCALE, result[2][i].z / SCALE);
+    }
+    
 
     glEnd();
 
@@ -121,9 +136,15 @@ int main(int argc, char** argv) {
     std::cout << "What point do you want to reach (x, y, z)" << std::endl;
     std::cin >> target;
 
+    try {
+        result = arm.reach_target(target);
+    }
+    catch(const char* x){
+        std::cout << x;
+        return 0;
+    }
     
-    result = arm.reach_target(target);
-    i = result[1].size() - 1;
+    i = 0;
 
     for (int j = 0; j < result[0].size();j++) {
         // i-ty koordynat barku
@@ -133,6 +154,18 @@ int main(int argc, char** argv) {
         // i-ty koordynat chwytaka
         std::cout << result[2][j] <<  std::endl;
     }
+    if (arm.catch_object(target)) {
+        catched = result[0].size() - 1;
+        std::vector < std::vector<Coordinates>>result2 = arm.back_to_starting_pos();
+        for (int k = 0; k < result.size(); k++) {
+            for (int j = 0; j < result2[k].size(); j++) {
+                result[k].push_back(result2[k][j]);
+            }
+        }
+        arm.release();
+        released = result[0].size() - 1;
+    }   
+    
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
@@ -145,7 +178,6 @@ int main(int argc, char** argv) {
     glutSpecialFunc(specialKeys);
 
     glutMainLoop();
-    
     
     return 0;
 
