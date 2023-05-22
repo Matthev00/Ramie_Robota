@@ -132,7 +132,9 @@ std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 {
 	// coords arr
 	std::vector<std::vector<Coordinates>> coords_arr(4);
-
+	coords_arr[0].push_back(shoulder.get_coordinates());
+	coords_arr[1].push_back(elbow.get_coordinates());
+	coords_arr[2].push_back(gripper.get_coordinates());
 
 	float target_distance = count_distance(start_coords, target);
 
@@ -146,6 +148,7 @@ std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 		// Dostosuj dugo forearm
 		while (abs(lenght - target_distance) >= eps) {
 			forearm.extend(0.97f);
+			elbow.get_my_next_joint_connector().set_end_coordinates(forearm.get_end_coordinates());
 			lenght = arm_part.get_lenght() + forearm.get_lenght();
 			update_after_elbow_forearm_movement(coords_arr);
 		}
@@ -204,12 +207,12 @@ std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 
 		while (elbow.get_my_next_joint_connector().get_lenght() > new_distance)
 		{
-			forearm.extend(0.98f);
+			forearm.extend(0.97f);
 			elbow.get_my_next_joint_connector().set_begin_coordinates(forearm.get_begin_coordinates());
 			elbow.get_my_next_joint_connector().set_end_coordinates(forearm.get_end_coordinates());
 			update_after_elbow_forearm_movement(coords_arr);
 		}
-		forearm.extend(100.0f / 98.0f);
+		forearm.extend(100.0f / 97.0f);
 		update_after_elbow_forearm_movement(coords_arr);
 		/*
 		*zegnij okie
@@ -255,7 +258,20 @@ std::vector<std::vector<Coordinates>> Arm::back_to_starting_pos()
 		elbow.re_bend();
 		update_after_elbow_forearm_movement(coords_arr);
 	}
-	// Wróciæ do d³ugoœci pocz¹tkowej forearm
+
+	Coordinates begin_coordinates = elbow.get_coordinates();
+	Coordinates end_coordinates = gripper.get_coordinates();
+	float x_diff = end_coordinates.x - begin_coordinates.x;
+	float y_diff = end_coordinates.y - begin_coordinates.y;
+	float z_diff = end_coordinates.z - begin_coordinates.z;
+	Wektor newDirection = Wektor(x_diff, y_diff, z_diff);
+	forearm.set_direction(newDirection);
+	while (abs(forearm.get_lenght() - forearm.get_initial_length()) > 0.01)
+	{
+		forearm.extend(100.0f/97.0f);
+		elbow.get_my_next_joint_connector().set_end_coordinates(forearm.get_end_coordinates());
+		update_after_elbow_forearm_movement(coords_arr);
+	}
 	return coords_arr;
 }
 
