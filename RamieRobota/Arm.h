@@ -20,6 +20,7 @@ private:
 	float tg;
 	float count_distance(const Coordinates&, const Coordinates&) const;
 	bool same_quarter(const Coordinates&, const Coordinates&)const;
+	float in_line(const Coordinates&, const Coordinates&)const;
 public:
 	Arm();
 	Arm(JointConnector&, ExtandebleJointConnector&, Coordinates = Coordinates());

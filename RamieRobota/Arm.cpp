@@ -24,6 +24,25 @@ bool Arm::same_quarter(const Coordinates& c1, const Coordinates& c2) const
 	return false;
 }
 
+float Arm::in_line(const Coordinates& coords1, const Coordinates& coords2) const
+{
+	float x_diff1 = coords1.x - start_coords.x;
+	float y_diff1 = coords1.y - start_coords.y;
+	float z_diff1 = coords1.z - start_coords.z;
+
+	float x_diff2 = coords2.x - start_coords.x;
+	float y_diff2 = coords2.y - start_coords.y;
+	float z_diff2 = coords2.z - start_coords.z;
+	float eps = 0.01;
+	if (x_diff2 == 0) { x_diff2 = 0.00001; }
+	if (y_diff2 == 0) { y_diff2 = 0.00001; }
+	if (z_diff2 == 0) { z_diff2 = 0.00001; }
+
+	float result = abs(x_diff1 / x_diff2 - y_diff1 / y_diff2) + abs(x_diff1 / x_diff2 - z_diff1 / z_diff2);
+	return result;
+
+}
+
 Arm::Arm()
 {
 	this->lenght = 0;
@@ -113,6 +132,7 @@ void Arm::update_after_elbow_forearm_movement(std::vector<std::vector<Coordinate
 {
 	forearm.set_end_coordinates(elbow.get_my_next_joint_connector().get_end_coordinates());
 	gripper.set_coordinates(forearm.get_end_coordinates());
+	lenght = arm_part.get_lenght() + forearm.get_lenght();
 	arr[0].push_back(shoulder.get_coordinates());
 	arr[1].push_back(elbow.get_coordinates());
 	arr[2].push_back(gripper.get_coordinates());
@@ -234,7 +254,24 @@ std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 std::vector<std::vector<Coordinates>> Arm::back_to_starting_pos()
 {
 	std::vector<std::vector<Coordinates>> coords_arr(4);
+	coords_arr[0].push_back(shoulder.get_coordinates());
+	coords_arr[1].push_back(elbow.get_coordinates());
+	coords_arr[2].push_back(gripper.get_coordinates());
 	float eps = 0.1f;
+	while (gripper.get_coordinates().z<elbow.get_coordinates().z)
+	{
+		elbow.re_bend();
+		update_after_elbow_forearm_movement(coords_arr);
+	}
+	float old_res = in_line(elbow.get_coordinates(), gripper.get_coordinates());
+	float new_res = old_res - 0.001;
+	while (new_res<old_res)
+	{
+		old_res = new_res;
+		elbow.re_bend();
+		update_after_elbow_forearm_movement(coords_arr);
+		new_res = in_line(elbow.get_coordinates(), gripper.get_coordinates());
+	}
 	while (shoulder.get_alpha() != 0) {
 		tg=shoulder.rotate_one_degree();
 		update_tg(tg);
@@ -245,11 +282,6 @@ std::vector<std::vector<Coordinates>> Arm::back_to_starting_pos()
 	{
 		shoulder.re_bend();
 		update_after_shoulder_re_bend(coords_arr, true);
-	}
-	while (abs(forearm.get_end_coordinates().x) > eps)
-	{
-		elbow.re_bend();
-		update_after_elbow_forearm_movement(coords_arr);
 	}
 
 	Coordinates begin_coordinates = elbow.get_coordinates();

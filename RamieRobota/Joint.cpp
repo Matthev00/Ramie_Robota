@@ -149,6 +149,10 @@ void Joint::re_bend()
             }
             else x += 0.1;
         }
+        else {
+            over = false;
+            x -= 0.1;
+        }
     }
     else {
         if (x + 0.1 <= my_next_joint_connector.max_x() && !over) {
@@ -160,6 +164,10 @@ void Joint::re_bend()
                 over = true;
             }
             else x -= 0.1;
+        }
+        else {
+            over = false;
+            x += 0.1;
         }
     }
     adjust_coords_of_next_joint_connector_re_bend(x);
@@ -198,7 +206,7 @@ void Joint::adjust_coords_of_next_joint_connector_re_bend(const float x_end, boo
     float new_z = sqrt(help);
     float begin_z = my_next_joint_connector.get_begin_coordinates().z;
     float z = begin_z + new_z;
-    if (coordinates.z > old_z) {
+    if (coordinates.z - old_z > 0.05) {
         z = begin_z - new_z;
     }
     

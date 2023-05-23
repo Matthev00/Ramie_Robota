@@ -8,9 +8,9 @@
 #include <Windows.h>
 
 
-float cameraX = 1.0f;
-float cameraY = 1.0f;
-float cameraZ = 5.0f;
+float cameraX = 5.0f;
+float cameraY = 5.0f;
+float cameraZ = 1.0f;
 std::vector < std::vector<Coordinates>>result;
 Coordinates target(2, 5, 5);
 int i;
@@ -133,27 +133,22 @@ int main(int argc, char** argv) {
     JointConnector arm_part(Coordinates(0, 0, 0), Coordinates(0, 0, 10));
     ExtandebleJointConnector forearm(Coordinates(0, 0, 10), Coordinates(0, 0, 20));
     Arm arm(arm_part, forearm);
-    std::cout << "What point do you want to reach (x, y, z)" << std::endl;
+    std::cout << "What point do you want to reach (x, y, z)\n(z must be positive)" << std::endl;
     std::cin >> target;
 
+    if (target.z < 0) {
+        std::cout << "Negative z!!";
+        return -1;
+    }
     try {
         result = arm.reach_target(target);
     }
     catch(const char* x){
         std::cout << x;
-        return 0;
+        return -1;
     }
     
     i = 0;
-
-    for (int j = 0; j < result[0].size();j++) {
-        // i-ty koordynat barku
-        std::cout << result[0][j];
-        // i-ty koordynat łokcia
-        std::cout << result[1][j];
-        // i-ty koordynat chwytaka
-        std::cout << result[2][j] <<  std::endl;
-    }
     if (arm.catch_object(target)) {
         catched = result[0].size() - 1;
         std::vector < std::vector<Coordinates>>result2 = arm.back_to_starting_pos();
