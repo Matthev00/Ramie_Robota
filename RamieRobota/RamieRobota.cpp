@@ -127,8 +127,6 @@ void specialKeys(int key, int x, int y) {
 
 
 
-
-
 int main(int argc, char** argv) {
     JointConnector arm_part(Coordinates(0, 0, 0), Coordinates(0, 0, 10));
     ExtandebleJointConnector forearm(Coordinates(0, 0, 10), Coordinates(0, 0, 20));
