@@ -49,15 +49,25 @@ Wydłużamy odpowiednio przedramię aż do momentu gdy będzie w miejscu począt
 
 ## Sterowanie kamerą w oknie aplikacji
 Sterowanie kamerą realizowane jest za pomocą modułu glut
+
 Będąc w aplikacji okienkowej dostępne są następujące kontrole:
+
 -ARROW_UP - zmniejszenie koordynatów z kamery
+
 -ARROW_DOWN - zwiększenie koordynatów z kamery
+
 -ARROW_LEFT - zmniejszenie koordynatów x kamery
+
 -ARROW_RIGHT - zwiększenie koordynatów x kamery
+
 -F1 - zwiększenie koordynatów y kamery
+
 -F2 - zmniejszenie koordynatów y kamery
+
 -F6 - cofnięcie się do poprzedniego stanu ramienia
+
 -F7 - przejście do kolejnego stanu ramienia
+
 
 ## Instalacja
 Aby program funkcjonował poprawnie niezbędne jest skopiowanie pliku freeglut.dll (znajdującego się w folderze NecessaryFiles) i umieszczenie go w $(SolutionDir)Debug,
@@ -68,9 +78,15 @@ Plikiem wyświetlającym i inicjującym ramię jest plik RamieRobota.cpp (tam zn
 
 ## Oznaczenia kolorów wizualizacji
 Białe linie - oznaczają części łączące stawamy
+
 Linia czerwona - oś X
+
 Linia zielona - oś Y
+
 Linia niebieska - oś Z
+
 Punkty limonkowe - miejsca w których znajdują się poszczególne stawy
+
 Punkt niebieski - Punkt docelowy
+
 Punkt czerwony - Punkt docelowy złapany przez chwytak
