@@ -32,3 +32,27 @@ Zrealizuje to poprzez ruchy trzema przegubami oraz ocinków łączących.
 Na początku ruszamy przegłubem barkowym do momentu aż przegłub łokciowy będzie najbliżej punktu docelowego.
 Następnie ruszamy przegłubem łokciowym do momentu aż chwytak będzie najbliżej celu.
 Następnie (jeżeli to potrzebne) modyfikujemy długość przedramienia.
+Po osiągnięciu celu przez chwytak zaczynamy powrót do pozycji starowej
+Aby powrócić odginamy staw łokciowy
+"Odkręcamy" staw barkowy
+Odginamy staw barkowy
+Wydłużamy odpowiednio przedramię aż do momentu gdy będzie w miejscu początkowym
+
+## Sterowanie kamerą w oknie aplikacji
+Sterowanie kamerą realizowane jest za pomocą modułu glut
+Będąc w aplikacji okienkowej dostępne są następujące kontrole:
+-ARROW_UP - zmniejszenie koordynatów z kamery
+-ARROW_DOWN - zwiększenie koordynatów z kamery
+-ARROW_LEFT - zmniejszenie koordynatów x kamery
+-ARROW_RIGHT - zwiększenie koordynatów x kamery
+-F1 - zwiększenie koordynatów y kamery
+-F2 - zmniejszenie koordynatów y kamery
+-F6 - cofnięcie się do poprzedniego stanu ramienia
+-F7 - przejście do kolejnego stanu ramienia
+
+## Instalacja
+Aby program funkcjonował poprawnie niezbędne jest skopiowanie pliku freeglut.dll i umieszczenie go w $(SolutionDir)Debug,
+gdzie $(SolutionDir) oznacza miejsce pliku projektowego.
+
+Program powinien być kompilowanhy w wersji x86.
+Plikiem wyświetlającym o inicjującym ramię jest plik RamieRobota.cpp (tam znajduje się funkcja main).
