@@ -258,11 +258,12 @@ std::vector<std::vector<Coordinates>> Arm::back_to_starting_pos()
 	coords_arr[1].push_back(elbow.get_coordinates());
 	coords_arr[2].push_back(gripper.get_coordinates());
 	float eps = 0.1f;
-	while (gripper.get_coordinates().z<elbow.get_coordinates().z)
+	while (abs(gripper.get_coordinates().x)<abs(elbow.get_coordinates().x))
 	{
 		elbow.re_bend();
 		update_after_elbow_forearm_movement(coords_arr);
 	}
+	/*
 	float old_res = in_line(elbow.get_coordinates(), gripper.get_coordinates());
 	float new_res = old_res - 0.001;
 	while (new_res<old_res)
@@ -272,11 +273,17 @@ std::vector<std::vector<Coordinates>> Arm::back_to_starting_pos()
 		update_after_elbow_forearm_movement(coords_arr);
 		new_res = in_line(elbow.get_coordinates(), gripper.get_coordinates());
 	}
+	*/
 	while (shoulder.get_alpha() != 0) {
 		tg=shoulder.rotate_one_degree();
 		update_tg(tg);
 		update_after_shoulder_movement(coords_arr);
 		
+	}
+	while (abs(gripper.get_coordinates().z) < abs(elbow.get_coordinates().z))
+	{
+		elbow.re_bend();
+		update_after_elbow_forearm_movement(coords_arr);
 	}
 	while (abs(arm_part.get_end_coordinates().x)>eps)
 	{

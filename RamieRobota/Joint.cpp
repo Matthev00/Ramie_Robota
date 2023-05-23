@@ -151,7 +151,7 @@ void Joint::re_bend()
         }
         else {
             over = false;
-            x -= 0.1;
+            x = my_next_joint_connector.max_x();
         }
     }
     else {
@@ -167,7 +167,7 @@ void Joint::re_bend()
         }
         else {
             over = false;
-            x += 0.1;
+            x = my_next_joint_connector.min_x();
         }
     }
     adjust_coords_of_next_joint_connector_re_bend(x);
