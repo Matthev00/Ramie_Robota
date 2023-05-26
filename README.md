@@ -11,27 +11,43 @@ Zrealizuje to poprzez ruchy dwoma przegubami oraz ocinków łączących.
 
 ## Podział problemu na klasy
 
-1. Klasa ramienia robota - Arm
+# Joints:
+														connncetion(zwykle polaczenie)(do stworzenia)
+																	|
+										BendingJointDirection(zginajacy staw tylko w podanej plaszczyznie)(do stworzenia)
+																	|
+											Joint(zginanie w dowolnej plaszczyznie prostopadlej do xy)
+											/														\
+ElbowJoint(staw okciowy posaiada poprzedni JointConnector)							ShoulderJoint(dodany ruch obrotowy)
+																									|
+																			RestrictedShoulderJoint(ograniczny kat ruchu obrotowego)
+# JointConnectors
+                                                            BaseJointConnector
+                                                                    |
+                                                                JointConnector
+                                                                    |
+                                                        ExtandebleJointConnector
 
-2. Klasa przegłubu - Joint
+# Robot
+                                                    RobotPart(do stworzenia w przyszłości)
+                                                                    |
+                                                            Arm(nasza klasa ramienia)
+                                                                    |
+                                        klasy rozbudowywyjące klase arm i jej metody(do stworzenia w przyszłości)
 
-3. Klasa odcinka łączącego - BaseJointConnector
+# Gripper
+Klasa chwytaka (w tym miejscu, jeżeli to możliwe, ma się znaleść punkt docelowy) - Gripper
 
-4. Klasa ramienia (dziedzicząca po klasie odcinka) - JointConnector
+# klasy pomocnicze
+-struct Coordinates(koordynaty)
 
-5. Klasa przedramienia (dziedzicząca po klasie odcinka) - ExtandebleJointConnector
+-class Wektor(wektor kierunkowy)
 
-6. Klasa przegłubu barkowego (dziedzicząca po klasie przegłubu) - ShoulderJoint
-
-7. Klasa przegłubu łokciowego (dziedzicząca po klasie przegłubu) - ElbowJoint
-
-8. Klasa chwytaka (w tym miejscu, jeżeli to możliwe, ma się znaleść punkt docelowy) - Gripper
 
 ## Sposób działania algorytmu dostawania się do punktu
 Przypadek 1: Punkt znajduje się w odleglości bliższej niż odległości łokcia od barku.
 Najpierw (jeżeli to potrzebne) modyfikujemy długość przedramienia.
 Ruszamy przegłubem barkowym do momentu aż chwytak będzie w miejscu docelowym.
-
 
 Przypadek 2:
 Na początku ruszamy przegłubem barkowym do momentu aż przegłub łokciowy będzie najbliżej punktu docelowego.
@@ -90,3 +106,11 @@ Punkty limonkowe - miejsca w których znajdują się poszczególne stawy
 Punkt niebieski - Punkt docelowy
 
 Punkt czerwony - Punkt docelowy złapany przez chwytak
+
+## Pomysły na usprawnienie, dalszą rozbudowe
+- stworzenie klasy przechowującej kolejne ustawienia coordynatów ramienia
+- Dodanie klasy bazowej RobotPart po ktorej dziedziczyłaby klasa Arm
+- W klasie RobotPart dodanie "mniej mądrych algorytmów osiagania celu"
+- Stworzenie bardziej rozbudowanego ramienia który dziedziczyłby po Arm
+- Stworzenie alternatywnych form wizualizacji (nawet w terminalu)
+
