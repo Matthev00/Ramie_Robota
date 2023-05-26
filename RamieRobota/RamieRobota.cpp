@@ -1,5 +1,7 @@
-﻿// RamieRobota.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
-//
+﻿// Author: Krzysztof Golcz
+
+// RamieRobota.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
+
 #include "Arm.h"
 #include <iostream>
 #include <GLFW/glfw3.h>
@@ -131,11 +133,11 @@ int main(int argc, char** argv) {
     JointConnector arm_part(Coordinates(0, 0, 0), Coordinates(0, 0, 10));
     ExtandebleJointConnector forearm(Coordinates(0, 0, 10), Coordinates(0, 0, 20));
     Arm arm(arm_part, forearm);
-    std::cout << "What point do you want to reach (x, y, z)\n(z must be positive)" << std::endl;
+    std::cout << "What point do you want to reach (x, y, z)\n(z must be over 2)" << std::endl;
     std::cin >> target;
 
-    if (target.z < 0) {
-        std::cout << "Negative z!!";
+    if (target.z < 2) {
+        std::cout << "Wrong z!!";
         return -1;
     }
     try {

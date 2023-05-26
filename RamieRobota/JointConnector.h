@@ -1,5 +1,5 @@
+//Author: Krzysztof Golcz
 #pragma once
-//Author: Krzysztof Glcz
 #include <math.h>
 #include "BaseJointConnector.h"
 #include "Wektor.h"

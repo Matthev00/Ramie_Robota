@@ -1,3 +1,5 @@
+// Author: Krzysztof Golcz
+
 #pragma once
 #include <iostream>
 #include "Wektor.h"

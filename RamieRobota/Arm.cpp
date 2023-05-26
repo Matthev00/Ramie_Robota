@@ -57,7 +57,7 @@ Arm::Arm(JointConnector& part_1, ExtandebleJointConnector& part_2, Coordinates c
 	shoulder = sh;
 	ElbowJoint el(arm_part, forearm);
 	elbow = el;
-	Gripper g(forearm.get_end_coordinates());
+	Gripper g(forearm.get_end_coordinates(), 2.0f);
 	gripper = g;
 	/// max lenght of elbow
 	tg = part_1.get_angle();
@@ -237,7 +237,9 @@ std::vector<std::vector<Coordinates>> Arm::reach_target(Coordinates& target)
 		while (new_distance < old_distance)
 		{
 			old_distance = new_distance;
+
 			elbow.bend_0_1();
+
 			update_after_elbow_forearm_movement(coords_arr);
 			new_distance = count_distance(gripper.get_coordinates(), target);
 		}

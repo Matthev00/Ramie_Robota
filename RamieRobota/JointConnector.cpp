@@ -1,3 +1,6 @@
+// Author: Krzysztof Golcz
+
+
 #include "JointConnector.h"
 
 

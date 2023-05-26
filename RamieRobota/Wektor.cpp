@@ -1,3 +1,5 @@
+// Author: Krzysztof Golcz
+
 #include "Wektor.h"
 
 Wektor::Wektor()

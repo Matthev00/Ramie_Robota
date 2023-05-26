@@ -1,3 +1,5 @@
+// Author: Krzysztof Golcz
+
 #include "ExtandebleJointConnector.h"
 
 ExtandebleJointConnector::ExtandebleJointConnector(): JointConnector()

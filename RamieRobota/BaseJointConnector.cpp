@@ -1,6 +1,7 @@
+// Author: Krzysztof Golcz
+
 #include "BaseJointConnector.h"
 
-// Czy jest sens umozliwiac zmiane koncowych/wektora
 
 BaseJointConnector::BaseJointConnector()
 {
